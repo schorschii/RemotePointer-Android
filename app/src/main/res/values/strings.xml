@@ -1,0 +1,76 @@
+<resources>
+    <string name="desktopapp_ver" translatable="false">v2.0</string>
+    <string name="websiteurl" translatable="false">"https://georg-sieber.de"</string>
+    <string name="emailaddress" translatable="false">android@georg-sieber.de</string>
+
+    <string name="app_name">RemotePointer</string>
+    <string name="version">v%1$s</string>
+    <string name="copyright">© Georg Sieber 2018</string>
+    <string name="website">Website</string>
+    <string name="email">E-Mail</string>
+    <string name="add_computer">Please download the RemotePointer App %1$s from https://sieber.systems/s/rp and start it on your computer. Ensure that the computer and this android device are connected to the same WiFi network.</string>
+    <string name="port">Port</string>
+    <string name="default_port" translatable="false">4444</string>
+    <string name="default_address" translatable="false">10.0.1.1</string>
+    <string name="ip_address">IP address</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="manual_connection">Manual Connection</string>
+    <string name="mouse_click_left">Mouse Click Left</string>
+    <string name="mouse_click_right">Mouse Click Right</string>
+    <string name="page_down">Page Down</string>
+    <string name="page_up">Page Up</string>
+    <string name="show_pointer">Show Pointer</string>
+    <string name="connfailed_title">Disconnected from computer</string>
+    <string name="authfailed_text">Please check the connection code in the desktop application and try again.</string>
+    <string name="connfailed_text">Remote computer is not reachable. Please start the application on the computer.</string>
+    <string name="connclosed_text">Connection closed by remote computer.</string>
+    <string name="auth_code">Connection Code</string>
+    <string name="touchpad">Touchpad</string>
+    <string name="help_text">"With this app you can control your computer\'s mouse, scroll trough slides of presentations and project a digital laser pointer dot on your computer screen by moving your android device (usage of the motion sensors). It is ideal for (recorded) presentations, because the laser pointer will also be recorded when you capture the computer's output. The digital laser pointer is also better visible in light-flooded rooms.\n\nPlease download the application for your computer from the website displayed on the start page. Start the application and ensure both devices are on the same network. Your computer appears in the list and you can tap on it to connect. Enter the connection code displayed on the application on your computer. Now you can control your computer.\n\nFree Software!! Pull requests welcome: https://github.com/schorschii/RemotePointer\nYou can use this app for free, but the features 'Keyboard' and 'Barcode Scanner' must be licensed via an in-app purchase.\n\nThis App uses the ZXing barcode library (https://github.com/zxing/zxing), licensed under the terms of the Apache License 2.0."</string>
+    <string name="buy_now">Buy</string>
+    <string name="purchase_already_done">Purchase already done</string>
+    <string name="purchase_already_done_description">You already own this item.</string>
+    <string name="purchase_canceled">Purchase canceled</string>
+    <string name="purchase_canceled_description">You can continue this purchase at any time.</string>
+    <string name="purchase_failed">Purchase failed</string>
+    <string name="check_internet_conn">Please check your internet connection and try again.</string>
+    <string name="store_not_avail">Google Play Store not available</string>
+    <string name="could_not_fetch_prices">Could not fetch current prices for in-app purchases.</string>
+    <string name="barcode_scanner">Barcode Scanner</string>
+    <string name="barcode_scanner_description">Use this app as barcode and QR code scanner for your computer. The app will send the contents of the code as text to your computer, just like a keyboard.</string>
+    <string name="keyboard">Keyboard</string>
+    <string name="scanner">Scanner</string>
+    <string name="send_immediately">Send immediately</string>
+    <string name="send_text_placeholder">Your text here…</string>
+    <string name="send">Send</string>
+    <string name="mouse">Mouse</string>
+    <string name="send_return">Send Return</string>
+    <string name="next_scan">Continue</string>
+    <string name="help">Help</string>
+    <string name="features">Features</string>
+    <string name="feature_locked_keyboard">Keyboard Feature Locked</string>
+    <string name="feature_locked_scanner">Barcode/QR Scanner Feature Locked</string>
+    <string name="feature_locked_text">You can unlock this feature with an in-app purchase.</string>
+    <string name="more">More…</string>
+    <string name="escape_key">ESC</string>
+    <string name="f1">F1</string>
+    <string name="f2">F2</string>
+    <string name="f3">F3</string>
+    <string name="f4">F4</string>
+    <string name="f5">F5</string>
+    <string name="f6">F6</string>
+    <string name="f7">F7</string>
+    <string name="f8">F8</string>
+    <string name="f9">F9</string>
+    <string name="f10">F10</string>
+    <string name="f11">F11</string>
+    <string name="f12">F12</string>
+    <string name="right_arrow_key">Right Arrow Key</string>
+    <string name="down_arrow_key">Down Arrow Key</string>
+    <string name="left_arrow_key">Left Arrow Key</string>
+    <string name="up_arrow_key">Up Arrow Key</string>
+    <string name="show_or_hide_keyboard">Show or hide Keyboard</string>
+    <string name="keyboard_description">Use this app as keyboard for your computer.</string>
+    <string name="apache_license">Apache License</string>
+</resources>
