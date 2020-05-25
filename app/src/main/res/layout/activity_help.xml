@@ -22,9 +22,6 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -178,17 +175,18 @@
                         android:layout_column="3"
                         android:layout_width="10dp"
                         android:layout_height="match_parent" />
+
                     <Button
                         android:id="@+id/buttonBuyKeyboard"
-                        android:enabled="false"
-                        android:layout_row="0"
-                        android:layout_column="4"
+                        style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:layout_row="0"
+                        android:layout_column="4"
                         android:layout_gravity="center_vertical"
-                        style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
-                        android:text="@string/buy_now"
-                        android:onClick="doBuyKeyboard"/>
+                        android:enabled="false"
+                        android:onClick="doBuyKeyboard"
+                        android:text="@string/buy_now" />
                 </GridLayout>
 
                 <Space
@@ -238,17 +236,18 @@
                         android:layout_column="3"
                         android:layout_width="10dp"
                         android:layout_height="match_parent" />
+
                     <Button
                         android:id="@+id/buttonBuyScanner"
-                        android:enabled="false"
-                        android:layout_row="0"
-                        android:layout_column="4"
+                        style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:layout_row="0"
+                        android:layout_column="4"
                         android:layout_gravity="center_vertical"
-                        style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
-                        android:text="@string/buy_now"
-                        android:onClick="doBuyScanner"/>
+                        android:enabled="false"
+                        android:onClick="doBuyScanner"
+                        android:text="@string/buy_now" />
                 </GridLayout>
 
                 <Space

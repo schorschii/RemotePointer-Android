@@ -5,9 +5,9 @@ android {
     defaultConfig {
         applicationId "systems.sieber.remotespotlight"
         minSdkVersion 15
-        targetSdkVersion 27
-        versionCode 9
-        versionName "2.0"
+        targetSdkVersion 29
+        versionCode 10
+        versionName "2.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
