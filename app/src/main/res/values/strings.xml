@@ -1,7 +1,7 @@
 <resources>
     <string name="desktopapp_ver" translatable="false">v2.0</string>
     <string name="websiteurl" translatable="false">"https://georg-sieber.de"</string>
-    <string name="emailaddress" translatable="false">android@georg-sieber.de</string>
+    <string name="emailaddress" translatable="false">support@georg-sieber.de</string>
 
     <string name="app_name">RemotePointer</string>
     <string name="version">v%1$s</string>
