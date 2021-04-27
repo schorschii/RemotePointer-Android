@@ -68,4 +68,10 @@
     <string name="show_or_hide_keyboard">Tastatur anzeigen oder ausblenden</string>
     <string name="keyboard_description">Verwenden Sie diese App als Tastatur für Ihren Computer.</string>
     <string name="apache_license">Apache License</string>
+    <string name="information">Informationen</string>
+    <string name="options">Optionen</string>
+    <string name="additional_features">Weitere Funktionen</string>
+    <string name="app_subtitle"><![CDATA[Digitaler Laser Pointer & Computersteuerung]]></string>
+    <string name="navigation_drawer_open">Menü öffnen</string>
+    <string name="navigation_drawer_close">Menü schließen</string>
 </resources>

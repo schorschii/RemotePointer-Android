@@ -73,4 +73,10 @@
     <string name="show_or_hide_keyboard">Show or hide Keyboard</string>
     <string name="keyboard_description">Use this app as keyboard for your computer.</string>
     <string name="apache_license">Apache License</string>
+    <string name="information">Information</string>
+    <string name="options">Options</string>
+    <string name="additional_features">Additional Features</string>
+    <string name="app_subtitle"><![CDATA[Digital Laser Pointer & Computer Control]]></string>
+    <string name="navigation_drawer_open">Open Menu</string>
+    <string name="navigation_drawer_close">Close Menu</string>
 </resources>

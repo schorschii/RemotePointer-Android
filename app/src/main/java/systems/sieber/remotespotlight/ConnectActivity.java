@@ -11,8 +11,15 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
@@ -33,7 +40,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ConnectActivity extends AppCompatActivity {
+public class ConnectActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     ConnectActivity me = this;
     ListenForBroadcastTask broadcastListener;
@@ -52,18 +59,27 @@ public class ConnectActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // init welcome text with app version
         TextView textViewConnectInfo = findViewById(R.id.textViewConnectInfo);
         textViewConnectInfo.setText(String.format(getResources().getString(R.string.add_computer), getResources().getString(R.string.desktopapp_ver)));
 
-        FloatingActionButton fabHelp = findViewById(R.id.fab);
+        // init Drawer
+        DrawerLayout drawer = findViewById(R.id.drawerLayoutMain);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+        NavigationView navigationView = findViewById(R.id.navigationViewMain);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        // init action button
+        /*FloatingActionButton fabHelp = findViewById(R.id.fab);
         fabHelp.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent helpIntent = new Intent(me, HelpActivity.class);
-                startActivity(helpIntent);
-            }
-        });
+            public void onClick(View view) { }
+        });*/
 
+        // init server list view
         listViewServer = findViewById(R.id.listViewServer);
         listViewServer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -109,23 +125,37 @@ public class ConnectActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_connect, menu);
+        //getMenuInflater().inflate(R.menu.menu_connect, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if(id == R.id.action_manual) {
-            dialogIP();
-        }
+        //int id = item.getItemId();
         return super.onOptionsItemSelected(item);
     }
 
     @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        DrawerLayout drawer = findViewById(R.id.drawerLayoutMain);
+        drawer.closeDrawer(GravityCompat.START);
+        switch(item.getItemId()) {
+            case R.id.nav_manual_conn:
+                dialogIP();
+                break;
+            case R.id.nav_information:
+                Intent helpIntent = new Intent(me, HelpActivity.class);
+                startActivity(helpIntent);
+                break;
+        }
+        return true;
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_CONTROL) {
-            if(resultCode == Activity.RESULT_OK){
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_CONTROL) {
+            if (resultCode == Activity.RESULT_OK) {
                 ControlActivity.messageType result = (ControlActivity.messageType) data.getSerializableExtra("result");
                 Log.e("messageType", result.toString());
                 connMessage(result);

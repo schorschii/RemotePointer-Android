@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item android:title="@string/additional_features">
+        <menu>
+            <item
+                android:id="@+id/nav_manual_conn"
+                android:icon="@drawable/ic_outline_add_black_24dp"
+                android:title="@string/manual_connection" />
+        </menu>
+    </item>
+
+    <item android:title="@string/options">
+        <menu>
+            <item
+                android:id="@+id/nav_information"
+                android:icon="@drawable/ic_outline_info_black_24dp"
+                android:title="@string/information" />
+        </menu>
+    </item>
+
+</menu>
