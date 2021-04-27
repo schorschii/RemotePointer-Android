@@ -14,8 +14,8 @@ import java.util.List;
 
 public class ControlComputerAdapter extends BaseAdapter {
 
-    private Context context;
-    private List<ControlComputer> computers;
+    private final Context context;
+    private final List<ControlComputer> computers;
 
     ControlComputerAdapter(Context context, List<ControlComputer> computers) {
         this.context = context;

@@ -10,9 +10,9 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
@@ -40,10 +40,10 @@ public class ConnectActivity extends AppCompatActivity {
     ListView listViewServer;
     List<ControlComputer> availComputers = new ArrayList<>();
 
-    final static String PREFS_NAME = "remotepointer";
-    private static int broadcastPort = 4445;
-    private static int controlPort = 4444;
-    private static int REQUEST_CONTROL = 1;
+    final static String PREFS_NAME           = "remotepointer";
+    private static final int broadcastPort   = 4445;
+    private static final int controlPort     = 4444;
+    private static final int REQUEST_CONTROL = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
