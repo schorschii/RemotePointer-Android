@@ -8,7 +8,11 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.android.billingclient.api.BillingResult;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -54,7 +58,6 @@ public class HelpActivity extends AppCompatActivity {
 
         // do feature check
         final FeatureCheck fc = new FeatureCheck(this);
-        fc.useCache = false;
         fc.setFeatureCheckReadyListener(new FeatureCheck.featureCheckReadyListener() {
             @Override
             public void featureCheckReady(boolean fetchSuccess) {
@@ -65,21 +68,27 @@ public class HelpActivity extends AppCompatActivity {
         fc.init();
 
         // init billing client
-        mBillingClient = BillingClient.newBuilder(this).setListener(new PurchasesUpdatedListener() {
+        mBillingClient = BillingClient.newBuilder(this)
+                .enablePendingPurchases()
+                .setListener(new PurchasesUpdatedListener() {
             @Override
-            public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
-                if (responseCode == BillingClient.BillingResponse.OK && purchases != null) {
-                    for (Purchase purchase : purchases) {
-                        unlockPurchase(purchase.getSku());
+            public void onPurchasesUpdated(@NonNull BillingResult billingResult, @Nullable List<Purchase> purchases) {
+                int responseCode = billingResult.getResponseCode();
+                if(responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
+                    for(Purchase purchase : purchases) {
+                        if(purchase.getPurchaseState() == Purchase.PurchaseState.PURCHASED) {
+                            unlockPurchase(purchase.getSku());
+                            FeatureCheck.acknowledgePurchase(mBillingClient, purchase);
+                        }
                     }
-                } else if (responseCode == BillingClient.BillingResponse.USER_CANCELED) {
+                } else if(responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {
                     dialog(
                             getResources().getString(R.string.purchase_canceled),
                             getResources().getString(R.string.purchase_canceled_description),
                             "warn",
                             false
                     );
-                } else if (responseCode == BillingClient.BillingResponse.ITEM_ALREADY_OWNED) {
+                } else if(responseCode == BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED) {
                     try {
                         dialog(
                                 getResources().getString(R.string.purchase_already_done),
@@ -106,8 +115,8 @@ public class HelpActivity extends AppCompatActivity {
         }).build();
         mBillingClient.startConnection(new BillingClientStateListener() {
             @Override
-            public void onBillingSetupFinished(@BillingClient.BillingResponse int billingResponseCode) {
-                if(billingResponseCode == BillingClient.BillingResponse.OK) {
+            public void onBillingSetupFinished(@NonNull BillingResult billingResult) {
+                if(billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
                     querySkus();
                 } else {
                     Snackbar.make(
@@ -170,22 +179,21 @@ public class HelpActivity extends AppCompatActivity {
         mBillingClient.querySkuDetailsAsync(params.build(), new SkuDetailsResponseListener() {
             @SuppressLint("SetTextI18n")
             @Override
-            public void onSkuDetailsResponse(int responseCode, List skuDetailsList) {
-                if (responseCode == BillingClient.BillingResponse.OK && skuDetailsList != null) {
-                    for (Object skuDetails : skuDetailsList) {
-                        String sku = ((SkuDetails)skuDetails).getSku();
-                        String price = ((SkuDetails)skuDetails).getPrice();
-                        switch (sku) {
+            public void onSkuDetailsResponse(@NonNull BillingResult billingResult, @Nullable List<SkuDetails> skuDetailsList) {
+                int responseCode = billingResult.getResponseCode();
+                if(responseCode == BillingClient.BillingResponseCode.OK && skuDetailsList != null) {
+                    for(SkuDetails skuDetails : skuDetailsList) {
+                        String sku = skuDetails.getSku();
+                        String price = skuDetails.getPrice();
+                        switch(sku) {
                             case "keyboard":
-                                ((Button) findViewById(R.id.buttonBuyKeyboard)).setText(
-                                        price+"\n"+getResources().getString(R.string.buy_now)
-                                );
+                                mSkuDetailsKeyboard = skuDetails;
+                                ((Button) findViewById(R.id.buttonBuyKeyboard)).setText(price+"\n"+getResources().getString(R.string.buy_now));
                                 (findViewById(R.id.buttonBuyKeyboard)).setEnabled(true);
                                 break;
                             case "scanner":
-                                ((Button) findViewById(R.id.buttonBuyScanner)).setText(
-                                        price+"\n"+getResources().getString(R.string.buy_now)
-                                );
+                                mSkuDetailsScanner = skuDetails;
+                                ((Button) findViewById(R.id.buttonBuyScanner)).setText(price+"\n"+getResources().getString(R.string.buy_now));
                                 (findViewById(R.id.buttonBuyScanner)).setEnabled(true);
                                 break;
                         }
@@ -202,23 +210,25 @@ public class HelpActivity extends AppCompatActivity {
         });
     }
 
-    private void doBuy(String sku) {
+    SkuDetails mSkuDetailsKeyboard;
+    SkuDetails mSkuDetailsScanner;
+
+    private BillingResult doBuy(SkuDetails sku) {
         BillingFlowParams flowParams = BillingFlowParams.newBuilder()
-                .setSku(sku)
-                .setType(BillingClient.SkuType.INAPP)
+                .setSkuDetails(sku)
                 .build();
-        int responseCode = mBillingClient.launchBillingFlow(this, flowParams);
+        return mBillingClient.launchBillingFlow(this, flowParams);
     }
     public void doBuyKeyboard(View v) {
-        doBuy("keyboard");
+        doBuy(mSkuDetailsKeyboard);
     }
     public void doBuyScanner(View v) {
-        doBuy("scanner");
+        doBuy(mSkuDetailsScanner);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+        switch(item.getItemId()) {
             case android.R.id.home:
                 finish();
                 return true;

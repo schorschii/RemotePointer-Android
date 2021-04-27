@@ -2,11 +2,17 @@ package systems.sieber.remotespotlight;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.android.billingclient.api.AcknowledgePurchaseParams;
+import com.android.billingclient.api.AcknowledgePurchaseResponseListener;
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
+import com.android.billingclient.api.BillingResult;
 import com.android.billingclient.api.Purchase;
+import com.android.billingclient.api.PurchaseHistoryRecord;
 import com.android.billingclient.api.PurchaseHistoryResponseListener;
 import com.android.billingclient.api.PurchasesUpdatedListener;
 
@@ -38,16 +44,37 @@ class FeatureCheck {
         unlockedScanner = settings.getBoolean("purchased-scanner", false);
 
         // init billing client - get purchases later for other devices
-        mBillingClient = BillingClient.newBuilder(context).setListener(new PurchasesUpdatedListener() {
+        mBillingClient = BillingClient.newBuilder(context)
+                .enablePendingPurchases()
+                .setListener(new PurchasesUpdatedListener() {
             @Override
-            public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
+            public void onPurchasesUpdated(@NonNull BillingResult billingResult, @Nullable List<Purchase> purchases) {
             }
         }).build();
         mBillingClient.startConnection(new BillingClientStateListener() {
             @Override
-            public void onBillingSetupFinished(@BillingClient.BillingResponse int billingResponseCode) {
-                if(billingResponseCode == BillingClient.BillingResponse.OK) {
-                    queryPurchases();
+            public void onBillingSetupFinished(@NonNull BillingResult billingResult) {
+                if(billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                    if(useCache) {
+                        Purchase.PurchasesResult purchasesResult = mBillingClient.queryPurchases(BillingClient.SkuType.INAPP);
+                        if(purchasesResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                            for(Purchase p : purchasesResult.getPurchasesList()) {
+                                unlockPurchase(p.getSku());
+                                acknowledgePurchase(mBillingClient, p);
+                            }
+                            if(listener != null) listener.featureCheckReady(true);
+                        } else {
+                            if(listener != null) listener.featureCheckReady(false);
+                        }
+                        isReady = true;
+                    } else {
+                        mBillingClient.queryPurchaseHistoryAsync(BillingClient.SkuType.INAPP, new PurchaseHistoryResponseListener() {
+                            @Override
+                            public void onPurchaseHistoryResponse(@NonNull BillingResult billingResult, @Nullable List<PurchaseHistoryRecord> list) {
+                                // not implemented anymore
+                            }
+                        });
+                    }
                 } else {
                     isReady = true;
                     if(listener != null) listener.featureCheckReady(false);
@@ -59,32 +86,14 @@ class FeatureCheck {
         });
     }
 
-    private void queryPurchases() {
-        if(useCache) {
-            Purchase.PurchasesResult purchasesResult = mBillingClient.queryPurchases(BillingClient.SkuType.INAPP);
-            if(purchasesResult.getResponseCode() == BillingClient.BillingResponse.OK) {
-                for(Purchase p : purchasesResult.getPurchasesList()) {
-                    unlockPurchase(p.getSku());
-                }
-                if(listener != null) listener.featureCheckReady(true);
-            } else {
-                if(listener != null) listener.featureCheckReady(false);
-            }
-            isReady = true;
-        } else {
-            mBillingClient.queryPurchaseHistoryAsync(BillingClient.SkuType.INAPP, new PurchaseHistoryResponseListener() {
+    static void acknowledgePurchase(BillingClient client, Purchase purchase) {
+        if(!purchase.isAcknowledged()) {
+            AcknowledgePurchaseParams acknowledgePurchaseParams = AcknowledgePurchaseParams.newBuilder()
+                    .setPurchaseToken(purchase.getPurchaseToken())
+                    .build();
+            client.acknowledgePurchase(acknowledgePurchaseParams, new AcknowledgePurchaseResponseListener() {
                 @Override
-                public void onPurchaseHistoryResponse(int responseCode, List<Purchase> purchasesList) {
-                    if(responseCode == BillingClient.BillingResponse.OK) {
-                        for(Purchase p : purchasesList) {
-                            unlockPurchase(p.getSku());
-                        }
-                        if(listener != null) listener.featureCheckReady(true);
-                    } else {
-                        if(listener != null) listener.featureCheckReady(false);
-                    }
-                    isReady = true;
-                }
+                public void onAcknowledgePurchaseResponse(@NonNull BillingResult billingResult) { }
             });
         }
     }
@@ -94,7 +103,7 @@ class FeatureCheck {
     boolean unlockedScanner = false;
 
     private void unlockPurchase(String sku) {
-        switch (sku) {
+        switch(sku) {
             case "keyboard":
                 unlockedKeyboard = true;
                 break;
