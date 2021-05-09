@@ -38,6 +38,10 @@ import android.widget.EditText;
 
 import com.google.zxing.Result;
 
+import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class ControlActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
@@ -253,12 +257,23 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        // establish connection to server
         Intent intent = getIntent();
         authCode = intent.getStringExtra("authCode");
         new ConnectTask(
                 intent.getStringExtra("address"),
                 intent.getIntExtra("port",4444)
         ).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        // send periodic ping packets
+        TimerTask taskCheckEvent = new TimerTask() {
+            @Override
+            public void run() {
+                // server will disconnect if no message received within 5 seconds
+                if(mTcpClient != null) mTcpClient.sendMessage("PING");
+            }
+        };
+        new Timer(false).schedule(taskCheckEvent, 0, 2000);
     }
 
     @Override
@@ -369,6 +384,7 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == REQUEST_HELP) {
             Log.i("FEATURECHECK", "init new feature check");
             fc = new FeatureCheck(this);
