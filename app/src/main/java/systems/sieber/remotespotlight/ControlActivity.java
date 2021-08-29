@@ -80,19 +80,19 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
             public void onTextChanged(CharSequence s, int start, int before, int count) { }
             @Override
             public void afterTextChanged(Editable s) {
-                if (fc != null && fc.unlockedKeyboard) {
-                    if (s.toString().equals("")) {
+                if(fc != null && fc.unlockedKeyboard) {
+                    if(s.toString().equals("")) {
                         sendBackspace();
-                    } else if (s.toString().length() > 1) {
+                    } else if(s.toString().length() > 1) {
                         Character c = s.toString().charAt(1);
-                        if (c == '\n') {
+                        if(c == '\n') {
                             sendReturn();
                         } else {
                             sendMessage(c + "");
                             Log.e("KEYEVENT", "CHAR:" + c);
                         }
                     }
-                    if (!et.getText().toString().equals("A")) {
+                    if(!et.getText().toString().equals("A")) {
                         et.setText("A");
                         et.setSelection(et.getText().length());
                     }
@@ -124,7 +124,7 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
         (findViewById(R.id.buttonSpotlight)).setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                switch ( event.getAction() ) {
+                switch( event.getAction() ) {
                     case MotionEvent.ACTION_DOWN:
                         if(mTcpClient != null) mTcpClient.sendMessage("START");
                         sendValues = true;
@@ -140,7 +140,7 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
         (findViewById(R.id.buttonPrev)).setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                switch ( event.getAction() ) {
+                switch( event.getAction() ) {
                     case MotionEvent.ACTION_DOWN:
                         if(mTcpClient != null) mTcpClient.sendMessage("PREV");
                         break;
@@ -151,7 +151,7 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
         (findViewById(R.id.buttonNext)).setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                switch ( event.getAction() ) {
+                switch( event.getAction() ) {
                     case MotionEvent.ACTION_DOWN:
                         if(mTcpClient != null) mTcpClient.sendMessage("NEXT");
                         break;
@@ -162,7 +162,7 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
         (findViewById(R.id.buttonMouseLeft)).setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                switch ( event.getAction() ) {
+                switch( event.getAction() ) {
                     case MotionEvent.ACTION_DOWN:
                         if(mTcpClient != null) mTcpClient.sendMessage("MDOWN");
                         break;
@@ -176,7 +176,7 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
         (findViewById(R.id.buttonMouseRight)).setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                switch ( event.getAction() ) {
+                switch( event.getAction() ) {
                     case MotionEvent.ACTION_DOWN:
                         if(mTcpClient != null) mTcpClient.sendMessage("MRIGHT");
                         break;
@@ -196,7 +196,7 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
             public boolean onTouch(View view, MotionEvent event) {
                 final int X = (int) event.getRawX();
                 final int Y = (int) event.getRawY();
-                switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                switch(event.getAction() & MotionEvent.ACTION_MASK) {
                     case MotionEvent.ACTION_DOWN:
                         startTime = System.currentTimeMillis();
                         _xDelta = X;
@@ -219,7 +219,7 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
                     case MotionEvent.ACTION_POINTER_UP:
                         break;
                     case MotionEvent.ACTION_MOVE:
-                        if (sendMouse && mTcpClient != null && X - _xDelta != 0 && Y - _yDelta != 0)
+                        if(sendMouse && mTcpClient != null && X - _xDelta != 0 && Y - _yDelta != 0)
                             mTcpClient.sendMessage("M"+"|"+Integer.toString(X - _xDelta)+"|"+Integer.toString(Y - _yDelta));
                         _xDelta = X;
                         _yDelta = Y;
@@ -233,14 +233,14 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
 
         SensorManager sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         Sensor rotationVectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
-        if (rotationVectorSensor == null) {
+        if(rotationVectorSensor == null) {
             Log.e("sensors", "Sensor not available.");
         }
         SensorEventListener sensorListener = new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent sensorEvent) {
                 //dv.update(-sensorEvent.values[2] * 10, -sensorEvent.values[0] * 10);
-                if (mTcpClient != null && sendValues) {
+                if(mTcpClient != null && sendValues) {
                     if(Math.abs(sensorEvent.values[2]) > 0.01f && Math.abs(sensorEvent.values[0]) > 0.01f)
                         mTcpClient.sendMessage("S"+"|"+Float.toString(-sensorEvent.values[2])+"|"+Float.toString(-sensorEvent.values[0]));
                 }
@@ -285,7 +285,7 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+        switch(item.getItemId()) {
             case R.id.action_show_mouse:
                 findViewById(R.id.linearLayoutControlDefaults).setVisibility(View.VISIBLE);
                 findViewById(R.id.linearLayoutControlKeyboard).setVisibility(View.GONE);
@@ -343,8 +343,7 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
         findViewById(R.id.editTextControlKeyboardImmediately).requestFocus();
     }
     private void hideKeyboard(EditText et) {
-        InputMethodManager imm = (InputMethodManager)getSystemService(
-                Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         if(imm != null) {
             imm.hideSoftInputFromWindow(et.getWindowToken(), 0);
         }
@@ -422,32 +421,32 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
 
     private void vibrate() {
         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            if (v != null) {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if(v != null) {
                 v.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE));
             }
         } else {
             //deprecated in API 26
-            if (v != null) {
+            if(v != null) {
                 v.vibrate(100);
             }
         }
     }
 
     public void sendMessageFromTextBox(View v) {
-        if (fc != null && fc.unlockedKeyboard) {
+        if(fc != null && fc.unlockedKeyboard) {
             EditText et = findViewById(R.id.editTextControlKeyboardText);
-            for (String line : et.getText().toString().split("\n")) {
+            for(String line : et.getText().toString().split("\n")) {
                 sendMessage(line);
                 try {
                     Thread.sleep(5);
-                } catch (InterruptedException e) {
+                } catch(InterruptedException e) {
                     e.printStackTrace();
                 }
                 sendReturn();
                 try {
                     Thread.sleep(5);
-                } catch (InterruptedException e) {
+                } catch(InterruptedException e) {
                     e.printStackTrace();
                 }
             }
