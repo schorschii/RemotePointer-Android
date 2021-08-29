@@ -229,6 +229,7 @@ public class HelpActivity extends AppCompatActivity {
         doBuy(mSkuDetailsScanner);
     }
 
+    @SuppressWarnings("SwitchStatementWithTooFewBranches")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
@@ -238,6 +239,11 @@ public class HelpActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void showOnGithub(View v) {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.repourl)));
+        startActivity(browserIntent);
     }
 
     public void showApacheLicense(View v) {

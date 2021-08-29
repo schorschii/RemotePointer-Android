@@ -126,9 +126,6 @@
                     android:layout_height="wrap_content"
                     android:text="@string/features"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="12dp" />
                 <GridLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -256,14 +253,45 @@
                     android:layout_height="wrap_content"
                     android:text="@string/help"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="12dp" />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/help_text" />
 
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/open_source"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/open_source_text" />
+                <Button
+                    style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                    android:layout_gravity="center"
+                    android:text="@string/remote_pointer_on_github"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="showOnGithub" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/third_party_components"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/third_party_components_text" />
                 <Button
                     style="@style/Widget.AppCompat.Button.Borderless.Colored"
                     android:layout_gravity="center"
