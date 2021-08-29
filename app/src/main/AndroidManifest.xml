@@ -13,6 +13,7 @@
     <uses-permission android:name="com.android.vending.BILLING" />
 
     <application
+        android:name=".RemotePointerApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -22,8 +23,7 @@
         <activity
             android:name=".ConnectActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,24 +33,21 @@
         <activity
             android:name=".ControlActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="systems.sieber.remotespotlight.ConnectActivity" />
         </activity>
         <activity
             android:name=".HelpActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:label="@string/app_name">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="systems.sieber.remotespotlight.ConnectActivity" />
         </activity>
         <activity
             android:name=".TextActivity"
-            android:label="@string/apache_license"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:label="@string/apache_license">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="systems.sieber.remotespotlight.HelpActivity" />

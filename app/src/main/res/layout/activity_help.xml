@@ -9,15 +9,13 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -25,7 +23,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context=".ConnectActivity"
         tools:showIn="@layout/activity_conn"
         android:id="@+id/helpMainView">
 
@@ -45,7 +42,7 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    app:srcCompat="@drawable/logo"
+                    android:src="@drawable/logo"
                     android:layout_marginEnd="16dp"
                     android:layout_marginStart="16dp"
                     android:contentDescription="Georg Sieber Logo"
@@ -143,7 +140,7 @@
                         android:layout_column="0"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        app:srcCompat="@drawable/ic_lock_black_24dp"
+                        android:src="@drawable/ic_lock_dynamic_24dp"
                         android:gravity="center"
                         android:layout_gravity="fill_horizontal"
                         android:contentDescription="@string/buy_now" />
@@ -204,7 +201,7 @@
                         android:layout_column="0"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        app:srcCompat="@drawable/ic_lock_black_24dp"
+                        android:src="@drawable/ic_lock_dynamic_24dp"
                         android:gravity="center"
                         android:layout_gravity="fill_horizontal"
                         android:contentDescription="@string/buy_now" />

@@ -5,18 +5,18 @@
     <item
         android:id="@+id/action_show_mouse"
         android:title="@string/mouse"
-        android:icon="@drawable/ic_mouse_white_24dp"
+        android:icon="@drawable/ic_mouse_dynamic_24dp"
         app:showAsAction="always"
         tools:ignore="AlwaysShowAction" />
     <item
         android:id="@+id/action_open_keyboard"
         android:title="@string/keyboard"
-        android:icon="@drawable/ic_keyboard_white_24dp"
+        android:icon="@drawable/ic_keyboard_dynamic_128dp"
         app:showAsAction="always"
         tools:ignore="AlwaysShowAction" />
     <item
         android:id="@+id/action_start_scanner"
         android:title="@string/scanner"
-        android:icon="@drawable/ic_camera_alt_white_24dp"
+        android:icon="@drawable/ic_camera_dynamic_24dp"
         app:showAsAction="always" />
 </menu>

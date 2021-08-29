@@ -38,7 +38,6 @@ import android.widget.EditText;
 
 import com.google.zxing.Result;
 
-import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -59,10 +58,12 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_control);
+        me = this;
+
+        // init toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        me = this;
+        if(getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // do feature check
         fc = new FeatureCheck(this);
@@ -318,7 +319,7 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
         AlertDialog.Builder ad = new AlertDialog.Builder(this);
         ad.setTitle(title);
         ad.setMessage(text);
-        ad.setIcon(getResources().getDrawable(R.drawable.ic_warning_gray_24dp));
+        ad.setIcon(getResources().getDrawable(R.drawable.ic_warning_orange_24dp));
         ad.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

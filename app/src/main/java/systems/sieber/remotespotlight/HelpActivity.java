@@ -44,9 +44,12 @@ public class HelpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
+
+        // init toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if(getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         mSettings = getSharedPreferences(ConnectActivity.PREFS_NAME, 0);
         try {
             ((TextView)findViewById(R.id.textViewVersion)).setText(
@@ -254,7 +257,7 @@ public class HelpActivity extends AppCompatActivity {
             ad.setIcon(getResources().getDrawable(R.drawable.fail));
         } else if(icon != null && icon.equals("warn")) {
             if(text != null && (!text.equals(""))) ad.setMessage(text);
-            ad.setIcon(getResources().getDrawable(R.drawable.ic_warning_gray_24dp));
+            ad.setIcon(getResources().getDrawable(R.drawable.ic_warning_orange_24dp));
         } else {
             ad.setMessage(text);
         }

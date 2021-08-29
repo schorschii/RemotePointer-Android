@@ -1,15 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     defaultConfig {
         applicationId "systems.sieber.remotespotlight"
         minSdkVersion 15
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 13
         versionName "2.2.0"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
-        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {

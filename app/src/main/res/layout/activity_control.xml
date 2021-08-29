@@ -9,15 +9,13 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -25,7 +23,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context=".ConnectActivity"
         tools:showIn="@layout/activity_conn">
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -87,7 +84,8 @@
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/show_or_hide_keyboard"
                         android:onClick="showSoftKeyboard"
-                        app:srcCompat="@drawable/ic_keyboard_gray_128dp" />
+                        app:tint="@color/colorAccent"
+                        android:src="@drawable/ic_keyboard_dynamic_128dp" />
 
                     <EditText
                         android:id="@+id/editTextControlKeyboardImmediately"
@@ -124,6 +122,8 @@
                             android:layout_height="70dp"
                             android:layout_weight="1"
                             android:onClick="sendEscape"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorIcon"
                             android:text="@string/escape_key" />
 
                         <ImageButton
@@ -132,7 +132,8 @@
                             android:layout_weight="1"
                             android:contentDescription="@string/up_arrow_key"
                             android:onClick="sendUp"
-                            app:srcCompat="@drawable/ic_keyboard_arrow_up_gray_48dp" />
+                            app:tint="@color/colorIcon"
+                            android:src="@drawable/ic_keyboard_arrow_up_dynamic_48dp" />
 
                         <Button
                             android:id="@+id/buttonSendText"
@@ -155,7 +156,8 @@
                             android:layout_weight="1"
                             android:contentDescription="@string/left_arrow_key"
                             android:onClick="sendLeft"
-                            app:srcCompat="@drawable/ic_keyboard_arrow_left_gray_48dp" />
+                            app:tint="@color/colorIcon"
+                            android:src="@drawable/ic_keyboard_arrow_left_dynamic_48dp" />
 
                         <ImageButton
                             android:layout_width="0dp"
@@ -163,7 +165,8 @@
                             android:layout_weight="1"
                             android:contentDescription="@string/down_arrow_key"
                             android:onClick="sendDown"
-                            app:srcCompat="@drawable/ic_keyboard_arrow_down_gray_48dp" />
+                            app:tint="@color/colorIcon"
+                            android:src="@drawable/ic_keyboard_arrow_down_dynamic_48dp" />
 
                         <ImageButton
                             android:layout_width="0dp"
@@ -171,7 +174,8 @@
                             android:layout_weight="1"
                             android:contentDescription="@string/right_arrow_key"
                             android:onClick="sendRight"
-                            app:srcCompat="@drawable/ic_keyboard_arrow_right_gray_48dp" />
+                            app:tint="@color/colorIcon"
+                            android:src="@drawable/ic_keyboard_arrow_right_dynamic_48dp" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -314,7 +318,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:contentDescription="@string/page_up"
-                    app:srcCompat="@drawable/ic_navigate_before_black_24dp"
+                    app:tint="@color/colorIcon"
+                    android:src="@drawable/ic_navigate_before_dynamic_48dp"
                     tools:ignore="NestedWeights" />
 
                 <ImageButton
@@ -323,7 +328,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="35"
                     android:contentDescription="@string/show_pointer"
-                    app:srcCompat="@drawable/ic_filter_center_focus_black_24dp" />
+                    app:tint="@color/colorIcon"
+                    android:src="@drawable/ic_filter_center_focus_dynamic_24dp" />
 
                 <ImageButton
                     android:id="@+id/buttonNext"
@@ -331,7 +337,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="10"
                     android:contentDescription="@string/page_down"
-                    app:srcCompat="@drawable/ic_navigate_next_black_24dp" />
+                    app:tint="@color/colorIcon"
+                    android:src="@drawable/ic_navigate_next_dynamic_48dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -343,6 +350,8 @@
                 <Button
                     android:id="@+id/buttonTouchpad"
                     style="@style/Widget.AppCompat.Button"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorIcon"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="@string/touchpad" />
@@ -359,7 +368,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:contentDescription="@string/mouse_click_left"
-                    app:srcCompat="@drawable/ic_mouse_black_24dp"
+                    app:tint="@color/colorIcon"
+                    android:src="@drawable/ic_mouse_dynamic_24dp"
                     tools:ignore="NestedWeights" />
 
                 <ImageButton
@@ -368,7 +378,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:contentDescription="@string/mouse_click_right"
-                    app:srcCompat="@drawable/ic_mouse_black_24dp" />
+                    app:tint="@color/colorIcon"
+                    android:src="@drawable/ic_mouse_dynamic_24dp" />
             </LinearLayout>
 
             <!--
