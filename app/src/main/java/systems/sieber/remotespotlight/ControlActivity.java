@@ -69,36 +69,43 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
         fc = new FeatureCheck(this);
         fc.init();
 
-        // set up hidden EditText
-        final EditText et = findViewById(R.id.editTextControlKeyboardImmediately);
-        et.setText("A");
-        et.setSelection(et.getText().length());
-        et.addTextChangedListener(new TextWatcher() {
+        // set up InputView
+        final View et = findViewById(R.id.editTextControlKeyboardImmediately);
+        et.setOnKeyListener(new View.OnKeyListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
-            @Override
-            public void afterTextChanged(Editable s) {
-                if(fc != null && fc.unlockedKeyboard) {
-                    if(s.toString().equals("")) {
-                        sendBackspace();
-                    } else if(s.toString().length() > 1) {
-                        Character c = s.toString().charAt(1);
-                        if(c == '\n') {
-                            sendReturn();
-                        } else {
-                            sendMessage(c + "");
-                            Log.e("KEYEVENT", "CHAR:" + c);
-                        }
-                    }
-                    if(!et.getText().toString().equals("A")) {
-                        et.setText("A");
-                        et.setSelection(et.getText().length());
-                    }
-                } else {
-                    dialogInApp(getResources().getString(R.string.feature_locked_keyboard), getResources().getString(R.string.feature_locked_text));
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(event.getAction() == KeyEvent.ACTION_UP) {
+                    return false;
                 }
+                char unicodeChar = (char) event.getUnicodeChar();
+                if(keyCode == KeyEvent.KEYCODE_ENTER) {
+                    // handle ENTER
+                    Log.e("KEYEVENT", "ENTER");
+                    sendReturn();
+                    return true;
+                } else if(keyCode == KeyEvent.KEYCODE_DEL) {
+                    // handle DEL
+                    Log.e("KEYEVENT", "DEL");
+                    sendBackspace();
+                    return true;
+                } else if(unicodeChar != 0) {
+                    // handle normal chars
+                    Log.e("KEYEVENT", "CHAR:" + unicodeChar);
+                    if(fc == null || !fc.unlockedKeyboard) {
+                        dialogInApp(getResources().getString(R.string.feature_locked_keyboard), getResources().getString(R.string.feature_locked_text));
+                        return true;
+                    }
+                    sendMessage(unicodeChar + "");
+                    return true;
+                }
+                // handle special chars (non-ASCII)
+                Log.e("KEYEVENT", "CHARS:"+event.getCharacters());
+                if(fc == null || !fc.unlockedKeyboard) {
+                    dialogInApp(getResources().getString(R.string.feature_locked_keyboard), getResources().getString(R.string.feature_locked_text));
+                    return true;
+                }
+                sendMessage(event.getCharacters() + "");
+                return true;
             }
         });
 

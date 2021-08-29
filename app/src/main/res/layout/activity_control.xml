@@ -71,32 +71,32 @@
                     android:checked="true"
                     android:text="@string/send_immediately" />
 
-                <LinearLayout
+                <androidx.coordinatorlayout.widget.CoordinatorLayout
                     android:id="@+id/viewKeyboardInput"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="128dp"
                     android:inputType="text"
                     android:minHeight="24dp"
                     android:orientation="vertical">
-
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:contentDescription="@string/show_or_hide_keyboard"
                         android:onClick="showSoftKeyboard"
                         app:tint="@color/colorAccent"
                         android:src="@drawable/ic_keyboard_dynamic_128dp" />
-
-                    <EditText
+                    <systems.sieber.remotespotlight.InputView
                         android:id="@+id/editTextControlKeyboardImmediately"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:hint="@string/send_text_placeholder"
-                        android:importantForAutofill="no"
-                        android:inputType="textFilter|textMultiLine"
+                        android:onClick="showSoftKeyboard"
+                        android:inputType="textMultiLine"
                         android:visibility="visible"
+                        android:focusable="true"
+                        android:clickable="true"
                         tools:ignore="UnusedAttribute" />
-                </LinearLayout>
+                </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
                 <EditText
                     android:id="@+id/editTextControlKeyboardText"
