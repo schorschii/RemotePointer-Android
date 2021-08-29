@@ -5,4 +5,5 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="activity_padding">15dp</dimen>
     <dimen name="list_item_padding">15dp</dimen>
+    <dimen name="control_button_horizontal_space">4dp</dimen>
 </resources>

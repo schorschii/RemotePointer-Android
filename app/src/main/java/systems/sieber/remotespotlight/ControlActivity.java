@@ -141,29 +141,7 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
                         sendValues = false;
                         break;
                 }
-                return true;
-            }
-        });
-        (findViewById(R.id.buttonPrev)).setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch( event.getAction() ) {
-                    case MotionEvent.ACTION_DOWN:
-                        if(mTcpClient != null) mTcpClient.sendMessage("PREV");
-                        break;
-                }
-                return true;
-            }
-        });
-        (findViewById(R.id.buttonNext)).setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch( event.getAction() ) {
-                    case MotionEvent.ACTION_DOWN:
-                        if(mTcpClient != null) mTcpClient.sendMessage("NEXT");
-                        break;
-                }
-                return true;
+                return false;
             }
         });
         (findViewById(R.id.buttonMouseLeft)).setOnTouchListener(new View.OnTouchListener() {
@@ -177,7 +155,7 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
                         if(mTcpClient != null) mTcpClient.sendMessage("MUP");
                         break;
                 }
-                return true;
+                return false;
             }
         });
         (findViewById(R.id.buttonMouseRight)).setOnTouchListener(new View.OnTouchListener() {
@@ -188,7 +166,7 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
                         if(mTcpClient != null) mTcpClient.sendMessage("MRIGHT");
                         break;
                 }
-                return true;
+                return false;
             }
         });
         (findViewById(R.id.buttonTouchpad)).setOnTouchListener(new View.OnTouchListener() {
@@ -487,6 +465,12 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
     }
     public void sendRight(View v) {
         if(mTcpClient != null) mTcpClient.sendMessage("RIGHT");
+    }
+    public void sendPrev(View v) {
+        if(mTcpClient != null) mTcpClient.sendMessage("PREV");
+    }
+    public void sendNext(View v) {
+        if(mTcpClient != null) mTcpClient.sendMessage("NEXT");
     }
     public void sendF1(View v) {
         if(mTcpClient != null) mTcpClient.sendMessage("F1");

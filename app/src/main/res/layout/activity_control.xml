@@ -125,7 +125,9 @@
                             android:textStyle="bold"
                             android:textColor="@color/colorIcon"
                             android:text="@string/escape_key" />
-
+                        <Space
+                            android:layout_width="@dimen/control_button_horizontal_space"
+                            android:layout_height="match_parent" />
                         <ImageButton
                             android:layout_width="0dp"
                             android:layout_height="70dp"
@@ -134,7 +136,9 @@
                             android:onClick="sendUp"
                             app:tint="@color/colorIcon"
                             android:src="@drawable/ic_keyboard_arrow_up_dynamic_48dp" />
-
+                        <Space
+                            android:layout_width="@dimen/control_button_horizontal_space"
+                            android:layout_height="match_parent" />
                         <Button
                             android:id="@+id/buttonSendText"
                             style="@style/Widget.AppCompat.Button.Colored"
@@ -158,7 +162,9 @@
                             android:onClick="sendLeft"
                             app:tint="@color/colorIcon"
                             android:src="@drawable/ic_keyboard_arrow_left_dynamic_48dp" />
-
+                        <Space
+                            android:layout_width="@dimen/control_button_horizontal_space"
+                            android:layout_height="match_parent" />
                         <ImageButton
                             android:layout_width="0dp"
                             android:layout_height="70dp"
@@ -167,7 +173,9 @@
                             android:onClick="sendDown"
                             app:tint="@color/colorIcon"
                             android:src="@drawable/ic_keyboard_arrow_down_dynamic_48dp" />
-
+                        <Space
+                            android:layout_width="@dimen/control_button_horizontal_space"
+                            android:layout_height="match_parent" />
                         <ImageButton
                             android:layout_width="0dp"
                             android:layout_height="70dp"
@@ -306,6 +314,10 @@
             android:orientation="vertical"
             android:visibility="visible">
 
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/control_button_horizontal_space" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -319,9 +331,12 @@
                     android:layout_weight="1"
                     android:contentDescription="@string/page_up"
                     app:tint="@color/colorIcon"
+                    android:onClick="sendPrev"
                     android:src="@drawable/ic_navigate_before_dynamic_48dp"
                     tools:ignore="NestedWeights" />
-
+                <Space
+                    android:layout_width="@dimen/control_button_horizontal_space"
+                    android:layout_height="match_parent" />
                 <ImageButton
                     android:id="@+id/buttonSpotlight"
                     android:layout_width="wrap_content"
@@ -330,7 +345,9 @@
                     android:contentDescription="@string/show_pointer"
                     app:tint="@color/colorIcon"
                     android:src="@drawable/ic_filter_center_focus_dynamic_24dp" />
-
+                <Space
+                    android:layout_width="@dimen/control_button_horizontal_space"
+                    android:layout_height="match_parent" />
                 <ImageButton
                     android:id="@+id/buttonNext"
                     android:layout_width="90dp"
@@ -338,6 +355,7 @@
                     android:layout_weight="10"
                     android:contentDescription="@string/page_down"
                     app:tint="@color/colorIcon"
+                    android:onClick="sendNext"
                     android:src="@drawable/ic_navigate_next_dynamic_48dp" />
             </LinearLayout>
 
@@ -371,7 +389,9 @@
                     app:tint="@color/colorIcon"
                     android:src="@drawable/ic_mouse_dynamic_24dp"
                     tools:ignore="NestedWeights" />
-
+                <Space
+                    android:layout_width="@dimen/control_button_horizontal_space"
+                    android:layout_height="match_parent" />
                 <ImageButton
                     android:id="@+id/buttonMouseRight"
                     android:layout_width="90dp"
