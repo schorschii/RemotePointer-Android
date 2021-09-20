@@ -100,6 +100,7 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
                 }
                 // handle special chars (non-ASCII)
                 Log.e("KEYEVENT", "CHARS:"+event.getCharacters());
+                if(event.getCharacters() == null) return true;
                 if(fc == null || !fc.unlockedKeyboard) {
                     dialogInApp(getResources().getString(R.string.feature_locked_keyboard), getResources().getString(R.string.feature_locked_text));
                     return true;
