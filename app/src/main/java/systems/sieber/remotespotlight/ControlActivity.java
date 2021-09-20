@@ -160,6 +160,7 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
             }
         });
         (findViewById(R.id.buttonMouseRight)).setOnTouchListener(new View.OnTouchListener() {
+            @SuppressWarnings("SwitchStatementWithTooFewBranches")
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch( event.getAction() ) {
@@ -171,7 +172,8 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
             }
         });
         (findViewById(R.id.buttonTouchpad)).setOnTouchListener(new View.OnTouchListener() {
-            private int maxPixelMovementForMouseClick = 5;
+            @SuppressWarnings("FieldCanBeLocal")
+            private final int maxPixelMovementForMouseClick = 5;
             private int _xDelta;
             private int _yDelta;
             private int _xDown;
@@ -201,7 +203,6 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
                         }
                         break;
                     case MotionEvent.ACTION_POINTER_DOWN:
-                        break;
                     case MotionEvent.ACTION_POINTER_UP:
                         break;
                     case MotionEvent.ACTION_MOVE:
@@ -547,8 +548,8 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
 
     public class ConnectTask extends AsyncTask<String, String, TcpClient> {
 
-        private String address;
-        private int port;
+        private final String address;
+        private final int port;
 
         ConnectTask(String _address, int _port) {
             address = _address;
