@@ -145,7 +145,7 @@ public class HelpActivity extends AppCompatActivity {
     public void onClickEmailLink(View v) {
         final Intent emailIntent = new Intent(Intent.ACTION_VIEW);
         Uri data = Uri.parse("mailto:"
-                + getResources().getString(R.string.emailaddress)
+                + getResources().getString(R.string.email_address)
                 + "?subject=" + "Feedback RemotePointer"
                 + "&body=" + "");
         emailIntent.setData(data);
@@ -153,7 +153,7 @@ public class HelpActivity extends AppCompatActivity {
     }
 
     public void onClickWebLink(View v) {
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.websiteurl)));
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.website_url)));
         startActivity(browserIntent);
     }
 
@@ -242,7 +242,7 @@ public class HelpActivity extends AppCompatActivity {
     }
 
     public void showOnGithub(View v) {
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.repourl)));
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.repo_url)));
         startActivity(browserIntent);
     }
 

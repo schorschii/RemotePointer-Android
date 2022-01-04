@@ -1,8 +1,8 @@
 <resources>
     <string name="desktopapp_ver" translatable="false">v2.1</string>
-    <string name="websiteurl" translatable="false">"https://georg-sieber.de"</string>
-    <string name="repourl" translatable="false">https://github.com/schorschii/RemotePointer</string>
-    <string name="emailaddress" translatable="false">support@georg-sieber.de</string>
+    <string name="website_url" translatable="false">https://georg-sieber.de</string>
+    <string name="repo_url" translatable="false">https://github.com/schorschii/RemotePointer-Android</string>
+    <string name="email_address" translatable="false">support@georg-sieber.de</string>
 
     <string name="app_name">RemotePointer</string>
     <string name="version">v%1$s</string>
@@ -33,7 +33,6 @@
     <string name="help_text">"With this app you can control your computer\'s mouse, scroll trough slides of presentations and project a digital laser pointer dot on your computer screen by moving your android device (usage of the motion sensors). It is ideal for (recorded) presentations, because the laser pointer will also be recorded when you capture the computer's output. The digital laser pointer is also better visible in light-flooded rooms.\n\nPlease download the application for your computer from the website displayed on the start page. Start the application and ensure both devices are on the same network. Your computer appears in the list and you can tap on it to connect. Enter the connection code displayed on the application on your computer. Now you can control your computer."</string>
     <string name="open_source_text">"Free Software!! Pull requests welcome. You can use this app for free, but the features 'Keyboard' and 'Barcode Scanner' must be licensed via an in-app purchase."</string>
     <string name="third_party_components_text">This App uses the ZXing barcode library (https://github.com/zxing/zxing), licensed under the terms of the Apache License 2.0.</string>
-    <string name="remote_pointer_on_github">Remote Pointer on GitHub</string>
     <string name="buy_now">Buy</string>
     <string name="purchase_already_done">Purchase already done</string>
     <string name="purchase_already_done_description">You already own this item.</string>

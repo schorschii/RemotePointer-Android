@@ -89,7 +89,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="onClickWebLink"
-                        android:text="@string/websiteurl"
+                        android:text="@string/website_url"
                         android:textAllCaps="false"
                         android:layout_column="1"
                         android:layout_row="0" />
@@ -110,7 +110,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="onClickEmailLink"
-                        android:text="@string/emailaddress"
+                        android:text="@string/email_address"
                         android:textAllCaps="false"
                         android:layout_column="1"
                         android:layout_row="1" />
@@ -274,9 +274,10 @@
                 <Button
                     style="@style/Widget.AppCompat.Button.Borderless.Colored"
                     android:layout_gravity="center"
-                    android:text="@string/remote_pointer_on_github"
+                    android:text="@string/repo_url"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textAllCaps="false"
                     android:onClick="showOnGithub" />
 
                 <Space
@@ -298,6 +299,7 @@
                     android:text="@string/apache_license"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textAllCaps="false"
                     android:onClick="showApacheLicense" />
 
                 <Space
