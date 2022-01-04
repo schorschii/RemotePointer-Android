@@ -31,7 +31,7 @@
     <string name="third_party_components">Third Party Components</string>
     <string name="open_source">Fork Me</string>
     <string name="help_text">"With this app you can control your computer\'s mouse, scroll trough slides of presentations and project a digital laser pointer dot on your computer screen by moving your android device (usage of the motion sensors). It is ideal for (recorded) presentations, because the laser pointer will also be recorded when you capture the computer's output. The digital laser pointer is also better visible in light-flooded rooms.\n\nPlease download the application for your computer from the website displayed on the start page. Start the application and ensure both devices are on the same network. Your computer appears in the list and you can tap on it to connect. Enter the connection code displayed on the application on your computer. Now you can control your computer."</string>
-    <string name="open_source_text">"Free Software!! Pull requests welcome. You can use this app for free, but the features 'Keyboard' and 'Barcode Scanner' must be licensed via an in-app purchase."</string>
+    <string name="open_source_text">"Free Software!! Pull requests are welcome in the repository on Github. You can use this app for free, but the features 'Keyboard' and 'Barcode Scanner' must be licensed via an in-app purchase."</string>
     <string name="third_party_components_text">This App uses the ZXing barcode library (https://github.com/zxing/zxing), licensed under the terms of the Apache License 2.0.</string>
     <string name="buy_now">Buy</string>
     <string name="purchase_already_done">Purchase already done</string>
