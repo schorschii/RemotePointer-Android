@@ -1,12 +1,12 @@
 <resources>
     <string name="desktopapp_ver" translatable="false">v2.1</string>
+    <string name="copyright" translatable="false">© Georg Sieber 2018–2022</string>
     <string name="website_url" translatable="false">https://georg-sieber.de</string>
     <string name="repo_url" translatable="false">https://github.com/schorschii/RemotePointer-Android</string>
     <string name="email_address" translatable="false">support@georg-sieber.de</string>
 
     <string name="app_name">RemotePointer</string>
     <string name="version">v%1$s</string>
-    <string name="copyright">© Georg Sieber 2018–2021</string>
     <string name="website">Website</string>
     <string name="email">E-Mail</string>
     <string name="add_computer">Please download the RemotePointer App %1$s from https://sieber.systems/s/rp and start it on your computer. Ensure that the computer and this android device are connected to the same WiFi network.</string>
