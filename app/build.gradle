@@ -6,8 +6,8 @@ android {
         applicationId "systems.sieber.remotespotlight"
         minSdkVersion 15
         targetSdkVersion 34
-        versionCode 18
-        versionName "2.3.3"
+        versionCode 19
+        versionName "2.3.4"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     buildTypes {
