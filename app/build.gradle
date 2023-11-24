@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 34
     defaultConfig {
         applicationId "systems.sieber.remotespotlight"
-        minSdkVersion 15
-        targetSdkVersion 34
-        versionCode 19
-        versionName "2.3.4"
+        minSdk 15
+        targetSdk 34
+        compileSdk 34
+        versionCode 20
+        versionName "2.3.5"
         multiDexEnabled true
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
