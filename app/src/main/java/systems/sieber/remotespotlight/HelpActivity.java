@@ -13,9 +13,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.android.billingclient.api.BillingResult;
+import com.android.billingclient.api.PendingPurchasesParams;
 import com.android.billingclient.api.ProductDetails;
 import com.android.billingclient.api.ProductDetailsResponseListener;
 import com.android.billingclient.api.QueryProductDetailsParams;
+import com.android.billingclient.api.QueryProductDetailsResult;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -56,7 +58,7 @@ public class HelpActivity extends AppCompatActivity {
             ((TextView)findViewById(R.id.textViewVersion)).setText(
                     String.format(getResources().getString(R.string.version), getPackageManager().getPackageInfo(getPackageName(), 0).versionName)
             );
-        } catch (PackageManager.NameNotFoundException e) {
+        } catch(PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
 
@@ -73,7 +75,7 @@ public class HelpActivity extends AppCompatActivity {
 
         // init billing client
         mBillingClient = BillingClient.newBuilder(this)
-                .enablePendingPurchases()
+                .enablePendingPurchases(PendingPurchasesParams.newBuilder().enableOneTimeProducts().build())
                 .setListener(new PurchasesUpdatedListener() {
             @Override
             public void onPurchasesUpdated(@NonNull BillingResult billingResult, @Nullable List<Purchase> purchases) {
@@ -182,10 +184,10 @@ public class HelpActivity extends AppCompatActivity {
         mBillingClient.queryProductDetailsAsync(params, new ProductDetailsResponseListener() {
             @SuppressLint("SetTextI18n")
             @Override
-            public void onProductDetailsResponse(@NonNull BillingResult billingResult, @NonNull List<ProductDetails> productDetailsList) {
+            public void onProductDetailsResponse(@NonNull BillingResult billingResult, @NonNull QueryProductDetailsResult queryProductDetailsResult) {
                 int responseCode = billingResult.getResponseCode();
                 if(responseCode == BillingClient.BillingResponseCode.OK) {
-                    for(final ProductDetails skuDetails : productDetailsList) {
+                    for(final ProductDetails skuDetails : queryProductDetailsResult.getProductDetailsList()) {
                         final String sku = skuDetails.getProductId();
                         final String price = Objects.requireNonNull(skuDetails.getOneTimePurchaseOfferDetails()).getFormattedPrice();
                         runOnUiThread(new Runnable(){

@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     defaultConfig {
         applicationId "systems.sieber.remotespotlight"
-        minSdk 15
+        minSdk 21 // for Play billing library >= 7.0.0, otherwise 15
         targetSdk 34
         compileSdk 34
         versionCode 20
@@ -31,5 +31,5 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'me.dm7.barcodescanner:zxing:1.9.8'
-    implementation 'com.android.billingclient:billing:6.0.1'
+    implementation 'com.android.billingclient:billing:8.0.0'
 }
