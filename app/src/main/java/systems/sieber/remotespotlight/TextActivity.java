@@ -27,7 +27,7 @@ public class TextActivity extends AppCompatActivity {
             byte[] b = new byte[in_s.available()];
             in_s.read(b);
             ((TextView) findViewById(R.id.textViewText)).setText(new String(b));
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
             ((TextView) findViewById(R.id.textViewText)).setText("???");
         }

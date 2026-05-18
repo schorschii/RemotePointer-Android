@@ -38,7 +38,7 @@ class TcpClient {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                if (mBufferOut != null) {
+                if(mBufferOut != null) {
                     Log.d(TAG, "Sending: " + message);
                     mBufferOut.println(message);
                     mBufferOut.flush();
@@ -52,7 +52,7 @@ class TcpClient {
     void stopClient() {
         mRun = false;
 
-        if (mBufferOut != null) {
+        if(mBufferOut != null) {
             mBufferOut.flush();
             mBufferOut.close();
         }
@@ -72,7 +72,7 @@ class TcpClient {
             Socket socket;
             try {
                 socket = new Socket(serverAddr, SERVER_PORT);
-            } catch (Exception e) {
+            } catch(Exception e) {
                 if(mConnectionFailedListener != null)
                     mConnectionFailedListener.connectionFailed();
                 return;
@@ -83,10 +83,10 @@ class TcpClient {
                 mBufferIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
                 boolean authFailed = false;
-                while (mRun) {
+                while(mRun) {
                     mServerMessage = mBufferIn.readLine();
 
-                    if (mServerMessage != null) {
+                    if(mServerMessage != null) {
                         if(mServerMessage.equals("AUTHFAILED")) {
                             authFailed = true;
                         }
@@ -95,16 +95,16 @@ class TcpClient {
                         }
                     }
 
-                    if (mServerMessage == null) {
+                    if(mServerMessage == null) {
                         mRun = false;
-                        if (mConnectionClosedListener != null)
+                        if(mConnectionClosedListener != null)
                             mConnectionClosedListener.connectionClosed(authFailed);
                     }
                 }
 
                 Log.d("RESPONSE FROM SERVER", "Received Message: '" + mServerMessage + "'");
 
-            } catch (Exception e) {
+            } catch(Exception e) {
                 Log.e("TCP", "Error", e);
             } finally {
                 socket.close();

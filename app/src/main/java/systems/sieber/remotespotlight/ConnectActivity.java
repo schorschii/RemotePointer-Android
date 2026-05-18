@@ -92,7 +92,7 @@ public class ConnectActivity extends AppCompatActivity implements NavigationView
             @Override
             public void run() {
                 try {
-                    while (!isInterrupted()) {
+                    while(!isInterrupted()) {
                         Thread.sleep(5000);
                         runOnUiThread(new Runnable() {
                             @Override
@@ -101,7 +101,7 @@ public class ConnectActivity extends AppCompatActivity implements NavigationView
                             }
                         });
                     }
-                } catch (InterruptedException e) {
+                } catch(InterruptedException e) {
                     e.printStackTrace();
                 }
             }
@@ -154,7 +154,7 @@ public class ConnectActivity extends AppCompatActivity implements NavigationView
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == REQUEST_CONTROL) {
-            if (resultCode == Activity.RESULT_OK) {
+            if(resultCode == Activity.RESULT_OK) {
                 ControlActivity.messageType result = (ControlActivity.messageType) data.getSerializableExtra("result");
                 Log.e("messageType", result.toString());
                 connMessage(result);
@@ -194,7 +194,7 @@ public class ConnectActivity extends AppCompatActivity implements NavigationView
     private void bindToListView(List<ControlComputer> cc) {
         if(cc == null) return;
         listViewServer.setAdapter(new ControlComputerAdapter(this, cc));
-        if(cc.size() > 0) {
+        if(!cc.isEmpty()) {
             findViewById(R.id.listViewServer).setVisibility(View.VISIBLE);
             findViewById(R.id.textViewConnectInfo).setVisibility(View.INVISIBLE);
         } else {
@@ -325,12 +325,12 @@ public class ConnectActivity extends AppCompatActivity implements NavigationView
                     if(data.startsWith("HELLOREMOTEPOINTER"))
                         publishProgress(senderAddress, data);
                 }
-            } catch (IOException ex) {
+            } catch(IOException ex) {
                 Log.e("UDP", "Oops: " + ex.getMessage());
             }
             try {
                 if(socket != null && !socket.isClosed()) socket.close();
-            } catch (Exception ex) {
+            } catch(Exception ex) {
                 Log.e("UDP", "Oops: " + ex.getMessage());
             }
 
@@ -341,12 +341,12 @@ public class ConnectActivity extends AppCompatActivity implements NavigationView
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
             ConnectActivity activity = activityReference.get();
-            if (activity == null) return;
+            if(activity == null) return;
 
             String hostname = "???";
             try {
                 hostname = values[1].split("\\|")[1];
-            } catch (Exception e) {
+            } catch(Exception e) {
                 e.printStackTrace();
             }
 
@@ -361,7 +361,7 @@ public class ConnectActivity extends AppCompatActivity implements NavigationView
                     activity.availComputers.add(new ControlComputer(hostname, values[0], new Date()));
                     activity.bindToListView(activity.availComputers);
                 }
-            } catch (Exception e) {
+            } catch(Exception e) {
                 e.printStackTrace();
             }
         }

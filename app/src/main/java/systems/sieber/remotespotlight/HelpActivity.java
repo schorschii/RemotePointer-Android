@@ -158,7 +158,7 @@ public class HelpActivity extends AppCompatActivity {
 
     private void unlockPurchase(String sku, Purchase purchase) {
         SharedPreferences.Editor editor = mSettings.edit();
-        switch (sku) {
+        switch(sku) {
             case "keyboard":
                 ((ImageView) findViewById(R.id.imageViewBuyKeyboard)).setImageResource(R.drawable.tick_green);
                 editor.putBoolean("purchased-keyboard", true);
