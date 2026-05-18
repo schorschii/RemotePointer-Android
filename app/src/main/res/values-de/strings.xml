@@ -74,7 +74,7 @@
     <string name="information">Informationen</string>
     <string name="options">Optionen</string>
     <string name="additional_features">Weitere Funktionen</string>
-    <string name="app_subtitle"><![CDATA[Digitaler Laser Pointer & Computersteuerung]]></string>
+    <string name="app_subtitle"><![CDATA[Digitaler Laserpointer, Maus/Tastatursteuerung & Barcodescanner]]></string>
     <string name="navigation_drawer_open">Menü öffnen</string>
     <string name="navigation_drawer_close">Menü schließen</string>
 </resources>
