@@ -67,8 +67,13 @@ public class HelpActivity extends AppCompatActivity {
         fc.setFeatureCheckReadyListener(new FeatureCheck.featureCheckReadyListener() {
             @Override
             public void featureCheckReady(boolean fetchSuccess) {
-                if(fc.unlockedKeyboard) unlockPurchase("keyboard", null);
-                if(fc.unlockedScanner) unlockPurchase("scanner", null);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(fc.unlockedKeyboard) unlockPurchase("keyboard", null);
+                        if(fc.unlockedScanner) unlockPurchase("scanner", null);
+                    }
+                });
             }
         });
         fc.init();
