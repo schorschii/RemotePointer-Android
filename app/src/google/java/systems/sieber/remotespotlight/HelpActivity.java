@@ -1,12 +1,6 @@
 package systems.sieber.remotespotlight;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,14 +13,9 @@ import com.android.billingclient.api.ProductDetailsResponseListener;
 import com.android.billingclient.api.QueryProductDetailsParams;
 import com.android.billingclient.api.QueryProductDetailsResult;
 import com.google.android.material.snackbar.Snackbar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
@@ -38,29 +27,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class HelpActivity extends AppCompatActivity {
+public class HelpActivity extends BaseHelpActivity {
 
     private BillingClient mBillingClient;
-    SharedPreferences mSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_help);
 
-        // init toolbar
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        if(getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        mSettings = getSharedPreferences(ConnectActivity.PREFS_NAME, 0);
-        try {
-            ((TextView)findViewById(R.id.textViewVersion)).setText(
-                    String.format(getResources().getString(R.string.version), getPackageManager().getPackageInfo(getPackageName(), 0).versionName)
-            );
-        } catch(PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
+        // init buy buttons
+        mButtonBuyKeyboard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                doBuy(mSkuDetailsKeyboard, null);
+            }
+        });
+        mButtonBuyKeyboard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                doBuy(mSkuDetailsScanner, null);
+            }
+        });
 
         // do feature check
         final FeatureCheck fc = new FeatureCheck(this);
@@ -70,8 +57,8 @@ public class HelpActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if(fc.unlockedKeyboard) unlockPurchase("keyboard", null);
-                        if(fc.unlockedScanner) unlockPurchase("scanner", null);
+                        if(fc.unlockedKeyboard) unlockPurchase("keyboard");
+                        if(fc.unlockedScanner) unlockPurchase("scanner");
                     }
                 });
             }
@@ -92,7 +79,7 @@ public class HelpActivity extends AppCompatActivity {
                                 runOnUiThread(new Runnable(){
                                     @Override
                                     public void run() {
-                                        unlockPurchase(sku, purchase);
+                                        unlockPurchase(sku);
                                     }
                                 });
                             }
@@ -144,37 +131,6 @@ public class HelpActivity extends AppCompatActivity {
                 );
             }
         });
-    }
-
-    public void onClickEmailLink(View v) {
-        final Intent emailIntent = new Intent(Intent.ACTION_VIEW);
-        Uri data = Uri.parse("mailto:"
-                + getResources().getString(R.string.email_address)
-                + "?subject=" + "Feedback RemotePointer"
-                + "&body=" + "");
-        emailIntent.setData(data);
-        startActivity(Intent.createChooser(emailIntent, "Feedback"));
-    }
-
-    public void onClickWebLink(View v) {
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.website_url)));
-        startActivity(browserIntent);
-    }
-
-    private void unlockPurchase(String sku, Purchase purchase) {
-        SharedPreferences.Editor editor = mSettings.edit();
-        switch(sku) {
-            case "keyboard":
-                ((ImageView) findViewById(R.id.imageViewBuyKeyboard)).setImageResource(R.drawable.tick_green);
-                editor.putBoolean("purchased-keyboard", true);
-                editor.apply();
-                break;
-            case "scanner":
-                ((ImageView) findViewById(R.id.imageViewBuyScanner)).setImageResource(R.drawable.tick_green);
-                editor.putBoolean("purchased-scanner", true);
-                editor.apply();
-                break;
-        }
     }
 
     private void querySkus() {
@@ -243,60 +199,6 @@ public class HelpActivity extends AppCompatActivity {
                 .setProductDetailsParamsList(productDetailsParamsList)
                 .build();
         return mBillingClient.launchBillingFlow(this, flowParams);
-    }
-    public void doBuyKeyboard(View v) {
-        doBuy(mSkuDetailsKeyboard, null);
-    }
-    public void doBuyScanner(View v) {
-        doBuy(mSkuDetailsScanner, null);
-    }
-
-    @SuppressWarnings("SwitchStatementWithTooFewBranches")
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    public void showOnGithub(View v) {
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.repo_url)));
-        startActivity(browserIntent);
-    }
-
-    public void showApacheLicense(View v) {
-        Intent i = new Intent(this, TextActivity.class);
-        startActivity(i);
-    }
-
-    private void dialog(String title, String text, String icon, final boolean finishIntent) {
-        AlertDialog ad = new AlertDialog.Builder(this).create();
-        ad.setCancelable(!finishIntent);
-        if(title != null && !title.equals("")) ad.setTitle(title);
-        if(icon != null && icon.equals("ok")) {
-            if(text != null && (!text.equals(""))) ad.setMessage(text);
-            ad.setIcon(getResources().getDrawable(R.drawable.tick_green));
-        } else if(icon != null && icon.equals("fail")) {
-            if(text != null && (!text.equals(""))) ad.setMessage(text);
-            ad.setIcon(getResources().getDrawable(R.drawable.fail));
-        } else if(icon != null && icon.equals("warn")) {
-            if(text != null && (!text.equals(""))) ad.setMessage(text);
-            ad.setIcon(getResources().getDrawable(R.drawable.ic_warning_orange_24dp));
-        } else {
-            ad.setMessage(text);
-        }
-        ad.setButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                if (finishIntent) finish();
-            }
-        });
-        ad.show();
     }
 
 }

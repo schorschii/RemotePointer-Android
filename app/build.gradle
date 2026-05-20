@@ -22,6 +22,22 @@ android {
             }
         }
     }
+    flavorDimensions "appstore"
+    productFlavors {
+        standalone {
+            dimension "appstore"
+            dependenciesInfo {
+                // Disables dependency metadata when building APKs.
+                includeInApk = false
+                // Disables dependency metadata when building Android App Bundles.
+                includeInBundle = false
+            }
+        }
+        google {
+            dimension "appstore"
+            minSdkVersion 21 // for Play billing library >= 7.0.0
+        }
+    }
     namespace 'systems.sieber.remotespotlight'
 }
 

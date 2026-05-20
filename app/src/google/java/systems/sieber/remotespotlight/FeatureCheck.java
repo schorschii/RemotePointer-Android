@@ -19,7 +19,7 @@ import com.android.billingclient.api.QueryPurchasesParams;
 
 import java.util.List;
 
-class FeatureCheck {
+class FeatureCheck extends BaseFeatureCheck {
 
     /*  It is not allowed to modify this file in order to bypass license checks.
         I made this app open source hoping people will learn something from this project.
@@ -29,26 +29,13 @@ class FeatureCheck {
     */
 
     private BillingClient mBillingClient;
-    private Context mContext;
-    private SharedPreferences mSettings;
 
     FeatureCheck(Context c) {
-        mContext = c;
-    }
-
-    private featureCheckReadyListener listener = null;
-    public interface featureCheckReadyListener {
-        void featureCheckReady(boolean fetchSuccess);
-    }
-    void setFeatureCheckReadyListener(featureCheckReadyListener listener) {
-        this.listener = listener;
+        super(c);
     }
 
     void init() {
-        // get settings (faster than google play - after purchase done, billing client needs minutes to realize the purchase)
-        mSettings = mContext.getSharedPreferences(ConnectActivity.PREFS_NAME, 0);
-        unlockedKeyboard = mSettings.getBoolean("purchased-keyboard", false);
-        unlockedScanner = mSettings.getBoolean("purchased-scanner", false);
+        super.init();
 
         // init billing client - get purchases later for other devices
         mBillingClient = BillingClient.newBuilder(mContext)
@@ -113,7 +100,7 @@ class FeatureCheck {
             for(Purchase p : purchasesList) {
                 if(p.getPurchaseState() == Purchase.PurchaseState.PURCHASED) {
                     for(String sku : p.getProducts()) {
-                        unlockPurchase(sku, p);
+                        unlockPurchase(sku);
                     }
                     acknowledgePurchase(mBillingClient, p);
                 }
@@ -130,7 +117,7 @@ class FeatureCheck {
                 if(p.getPurchaseState() == Purchase.PurchaseState.PURCHASED) {
                     for(String sku : p.getProducts()) {
                         if(p.isAutoRenewing()) {
-                            unlockPurchase(sku, p);
+                            unlockPurchase(sku);
                         }
                     }
                     acknowledgePurchase(mBillingClient, p);
@@ -155,19 +142,4 @@ class FeatureCheck {
         }
     }
 
-    boolean isReady = false;
-
-    boolean unlockedKeyboard = false;
-    boolean unlockedScanner = false;
-
-    private void unlockPurchase(String sku, Purchase purchase) {
-        switch(sku) {
-            case "keyboard":
-                unlockedKeyboard = true;
-                break;
-            case "scanner":
-                unlockedScanner = true;
-                break;
-        }
-    }
 }

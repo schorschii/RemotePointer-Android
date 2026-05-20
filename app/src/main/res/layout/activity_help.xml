@@ -180,7 +180,6 @@
                         android:layout_column="4"
                         android:layout_gravity="center_vertical"
                         android:enabled="false"
-                        android:onClick="doBuyKeyboard"
                         android:text="@string/buy_now" />
                 </GridLayout>
 
@@ -241,7 +240,6 @@
                         android:layout_column="4"
                         android:layout_gravity="center_vertical"
                         android:enabled="false"
-                        android:onClick="doBuyScanner"
                         android:text="@string/buy_now" />
                 </GridLayout>
 

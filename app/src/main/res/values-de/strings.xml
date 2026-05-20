@@ -77,4 +77,9 @@
     <string name="app_subtitle"><![CDATA[Digitaler Laserpointer, Maus/Tastatursteuerung & Barcodescanner]]></string>
     <string name="navigation_drawer_open">Menü öffnen</string>
     <string name="navigation_drawer_close">Menü schließen</string>
+    <string name="unlock_code">Freischaltcode</string>
+    <string name="buy_a_code">Einen Code kaufen</string>
+    <string name="activation_failed">Aktivierung fehlgeschlagen</string>
+    <string name="invalid_code">Ungültiger Code</string>
+    <string name="no_web_browser_found">Kein Webbrowser zum Öffnen der URL gefunden</string>
 </resources>
