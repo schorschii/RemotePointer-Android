@@ -222,6 +222,8 @@ public class ConnectActivity extends AppCompatActivity implements NavigationView
                 );
                 SharedPreferences settings_w = getSharedPreferences(PREFS_NAME, 0);
                 SharedPreferences.Editor editor = settings_w.edit();
+                editor.putString("address", address);
+                editor.putInt("port", port);
                 editor.putString("authCode", authCode);
                 editor.apply();
             }
