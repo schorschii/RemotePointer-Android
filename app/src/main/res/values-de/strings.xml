@@ -82,4 +82,5 @@
     <string name="activation_failed">Aktivierung fehlgeschlagen</string>
     <string name="invalid_code">Ungültiger Code</string>
     <string name="no_web_browser_found">Kein Webbrowser zum Öffnen der URL gefunden</string>
+    <string name="volume_button_hint">Hinweis: verwenden Sie die Lautstärketasten, um die Lautstärke Ihres Computers zu steuern.</string>
 </resources>

@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -34,6 +35,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.zxing.Result;
 
 import java.util.Timer;
@@ -66,6 +68,15 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
         // do feature check
         fc = new FeatureCheck(this);
         fc.init();
+
+        // show volume button hint
+        SharedPreferences settings = getSharedPreferences(ConnectActivity.PREFS_NAME, 0);
+        if(!settings.getBoolean("volume-hint-shown", false)) {
+            Snackbar.make(findViewById(R.id.controlMainView), getResources().getString(R.string.volume_button_hint), Snackbar.LENGTH_LONG).show();
+            SharedPreferences.Editor edit = settings.edit();
+            edit.putBoolean("volume-hint-shown", true);
+            edit.apply();
+        }
 
         // set up InputView
         final View et = findViewById(R.id.editTextControlKeyboardImmediately);
@@ -338,6 +349,13 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if(keyCode == KeyEvent.KEYCODE_BACK)
             finish();
+        else if(keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
+            if(mTcpClient != null) mTcpClient.sendMessage("VOLUMEDOWN");
+            return true;
+        } else if(keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
+            if(mTcpClient != null) mTcpClient.sendMessage("VOLUMEUP");
+            return true;
+        }
         return super.onKeyDown(keyCode, event);
     }
 
