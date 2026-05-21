@@ -1,0 +1,12 @@
+Mit dieser App können Sie die Tastatur und Maus (über ein Touchpad) Ihres Computers fernsteuern. Des Weiteren kann ein digitaler Laserpointer-Punkt auf den Bildschirm oder Projektor projiziert werden, der mit der Bewegung Ihres Android-Gerätes gesteuert wird.
+
+Vorteile:
+- bedienen Sie Ihren Computer von der Couch aus
+- der Laserpointer-Punkt kann bei Präsentationen mit aufgezeichnet werden, wenn die Bildschirmausgabe aufgenommen wird
+- der digitale Laserpointer-Punkt ist in hellen Räumen besser zu sehen
+- Sie können mit Ihrem Android-Gerät gleichzeitig die Folien vor- und zurückblättern sowie die Maus steuern
+- Sie können die App als Barcode-/QR-Code-Scanner für Ihren Computer verwenden
+
+Bitte laden Sie sich die kostenfreie Software für Ihren PC (Linux, macOS und Windows) von https://sieber.systems/s/rp herunter.
+
+Ziel dieses Projekts ist die Bereitstellung einer vollständig selbstgehosteten Fernsteuerungsanwendung ohne Abhängigkeiten zu externen Servern und ohne Tracking.
