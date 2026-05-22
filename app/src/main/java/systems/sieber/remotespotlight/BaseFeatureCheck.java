@@ -3,8 +3,6 @@ package systems.sieber.remotespotlight;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.android.billingclient.api.Purchase;
-
 public class BaseFeatureCheck {
 
     /*  It is not allowed to modify this file in order to bypass license checks.

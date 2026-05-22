@@ -47,5 +47,5 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.google.android.material:material:1.10.0'
     implementation 'me.dm7.barcodescanner:zxing:1.9.8'
-    implementation 'com.android.billingclient:billing:8.0.0'
+    googleImplementation 'com.android.billingclient:billing:8.0.0'
 }
