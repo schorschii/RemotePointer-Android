@@ -130,8 +130,8 @@ public class HelpActivity extends BaseHelpActivity {
             } else {
                 throw new Exception(getString(R.string.invalid_code) + " ("+statusCode+")");
             }
-        } catch(IOException ignored) {
-            ignored.printStackTrace();
+        } catch(IOException e) {
+            e.printStackTrace();
             throw new Exception(getString(R.string.check_internet_conn));
         }
     }
