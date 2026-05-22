@@ -42,7 +42,7 @@ public class HelpActivity extends BaseHelpActivity {
                 doBuy(mSkuDetailsKeyboard, null);
             }
         });
-        mButtonBuyKeyboard.setOnClickListener(new View.OnClickListener() {
+        mButtonBuyScanner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 doBuy(mSkuDetailsScanner, null);
