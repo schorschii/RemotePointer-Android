@@ -89,17 +89,17 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
                 char unicodeChar = (char) event.getUnicodeChar();
                 if(keyCode == KeyEvent.KEYCODE_ENTER) {
                     // handle ENTER
-                    Log.e("KEYEVENT", "ENTER");
+                    Log.i("KEYEVENT", "ENTER");
                     sendReturn();
                     return true;
                 } else if(keyCode == KeyEvent.KEYCODE_DEL) {
                     // handle DEL
-                    Log.e("KEYEVENT", "DEL");
+                    Log.i("KEYEVENT", "DEL");
                     sendBackspace();
                     return true;
                 } else if(unicodeChar != 0) {
                     // handle normal chars
-                    Log.e("KEYEVENT", "CHAR:" + unicodeChar);
+                    Log.i("KEYEVENT", "CHAR:" + unicodeChar);
                     if(fc == null || !fc.unlockedKeyboard) {
                         dialogInApp(getResources().getString(R.string.feature_locked_keyboard), getResources().getString(R.string.feature_locked_text));
                         return true;
@@ -108,7 +108,7 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
                     return true;
                 }
                 // handle special chars (non-ASCII)
-                Log.e("KEYEVENT", "CHARS:"+event.getCharacters());
+                Log.i("KEYEVENT", "CHARS:"+event.getCharacters());
                 if(event.getCharacters() == null) return false;
                 if(fc == null || !fc.unlockedKeyboard) {
                     dialogInApp(getResources().getString(R.string.feature_locked_keyboard), getResources().getString(R.string.feature_locked_text));
@@ -578,13 +578,13 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
             mTcpClient = new TcpClient(address, port,
                 new TcpClient.OnMessageReceived() {
                 @Override
-                //here the messageReceived method is implemented
+                // here the messageReceived method is implemented
                 public void messageReceived(String message) {
                     if(message.equals("HELLO!")) {
                         Log.d("Sending authcode", "--> "+authCode);
                         mTcpClient.sendMessage(authCode);
                     }
-                    //this method calls the onProgressUpdate
+                    // this method calls the onProgressUpdate
                     publishProgress(message);
                 }
             },
