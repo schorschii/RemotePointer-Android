@@ -1,5 +1,5 @@
 <resources>
-    <string name="desktopapp_ver" translatable="false">v3.0</string>
+    <string name="desktopapp_ver" translatable="false">v3.1</string>
     <string name="copyright" translatable="false">© Georg Sieber 2018–2026</string>
     <string name="website_url" translatable="false">https://georg-sieber.de</string>
     <string name="repo_url" translatable="false">https://github.com/schorschii/RemotePointer-Android</string>
