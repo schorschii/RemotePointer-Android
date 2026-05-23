@@ -8,6 +8,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.SocketException;
 
 class TcpClient {
 
@@ -63,7 +64,7 @@ class TcpClient {
         mServerMessage = null;
     }
 
-    void run() {
+    void run() throws ConnectionAbortException {
 
         mRun = true;
         try {
@@ -85,8 +86,13 @@ class TcpClient {
                 boolean authFailed = false;
                 while(mRun) {
                     mServerMessage = mBufferIn.readLine();
+                    Log.d(TAG, "Received: '" + mServerMessage + "'");
 
-                    if(mServerMessage != null) {
+                    if(mServerMessage == null) {
+                        mRun = false;
+                        if(mConnectionClosedListener != null)
+                            mConnectionClosedListener.connectionClosed(authFailed);
+                    } else {
                         if(mServerMessage.equals("AUTHFAILED")) {
                             authFailed = true;
                         }
@@ -95,23 +101,25 @@ class TcpClient {
                         }
                     }
 
-                    if(mServerMessage == null) {
-                        mRun = false;
-                        if(mConnectionClosedListener != null)
-                            mConnectionClosedListener.connectionClosed(authFailed);
-                    }
                 }
 
-                Log.d("RESPONSE FROM SERVER", "Received Message: '" + mServerMessage + "'");
-
+            } catch(SocketException e) {
+                // e.getMessage().equals("Socket closed") -> closed by client
+                if(e.getMessage() != null && e.getMessage().equals("Software caused connection abort")) {
+                    throw new ConnectionAbortException();
+                }
+                Log.e(TAG, "Error", e);
             } catch(Exception e) {
-                Log.e("TCP", "Error", e);
+                Log.e(TAG, "Error", e);
             } finally {
                 socket.close();
             }
 
-        } catch (Exception e) {
-            Log.e("TCP", "Error", e);
+        } catch(Exception e) {
+            if(e instanceof ConnectionAbortException) {
+                throw new ConnectionAbortException();
+            }
+            Log.e(TAG, "Error", e);
         }
 
     }
@@ -129,3 +137,5 @@ class TcpClient {
     }
 
 }
+
+class ConnectionAbortException extends SocketException { }

@@ -47,9 +47,13 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
 
     ControlActivity me;
     TcpClient mTcpClient;
-    boolean sendValues = false;
-    String authCode;
     FeatureCheck fc;
+
+    boolean sendValues = false;
+
+    String mAddress;
+    int mPort;
+    String mAuthCode;
 
     private final int REQUEST_HELP = 1;
 
@@ -256,11 +260,10 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
 
         // establish connection to server
         Intent intent = getIntent();
-        authCode = intent.getStringExtra("authCode");
-        new ConnectTask(
-                intent.getStringExtra("address"),
-                intent.getIntExtra("port",4444)
-        ).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        mAddress = intent.getStringExtra("address");
+        mPort = intent.getIntExtra("port",4444);
+        mAuthCode = intent.getStringExtra("authCode");
+        connect();
 
         // send periodic ping packets
         TimerTask taskCheckEvent = new TimerTask() {
@@ -309,6 +312,31 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
                 return super.onOptionsItemSelected(item);
         }
         return true;
+    }
+
+    private void connect() {
+        new ConnectTask(mAddress, mPort).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    private void askReconnect() {
+        AlertDialog.Builder ad = new AlertDialog.Builder(this);
+        ad.setTitle(getString(R.string.connfailed_title));
+        ad.setMessage(getString(R.string.reconnect));
+        ad.setIcon(getResources().getDrawable(R.drawable.ic_warning_orange_24dp));
+        ad.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                connect();
+            }
+        });
+        ad.setNeutralButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        ad.setCancelable(false);
+        ad.show();
     }
 
     private void dialogInApp(String title, String text) {
@@ -574,42 +602,46 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
 
         @Override
         protected TcpClient doInBackground(String... message) {
-
-            mTcpClient = new TcpClient(address, port,
-                new TcpClient.OnMessageReceived() {
-                @Override
-                // here the messageReceived method is implemented
-                public void messageReceived(String message) {
-                    if(message.equals("HELLO!")) {
-                        Log.d("Sending authcode", "--> "+authCode);
-                        mTcpClient.sendMessage(authCode);
-                    }
-                    // this method calls the onProgressUpdate
-                    publishProgress(message);
-                }
-            },
-            new TcpClient.OnConnectionClosed() {
-                @Override
-                public void connectionClosed(boolean authFailed) {
-                    if(authFailed) finishWithMessage(messageType.authFailed);
-                    else finishWithMessage(messageType.connectionClosed);
-                }
-            },
-            new TcpClient.OnConnectionFailed() {
-                @Override
-                public void connectionFailed() {
-                    finishWithMessage(messageType.connectionFailed);
-                }
-            });
-            mTcpClient.run();
-
+            try {
+                mTcpClient = new TcpClient(address, port,
+                        new TcpClient.OnMessageReceived() {
+                            @Override
+                            // here the messageReceived method is implemented
+                            public void messageReceived(String message) {
+                                if(message.equals("HELLO!")) {
+                                    Log.d("Sending authcode", "--> "+mAuthCode);
+                                    mTcpClient.sendMessage(mAuthCode);
+                                }
+                                // this method calls the onProgressUpdate
+                                publishProgress(message);
+                            }
+                        },
+                        new TcpClient.OnConnectionClosed() {
+                            @Override
+                            public void connectionClosed(boolean authFailed) {
+                                if(authFailed) finishWithMessage(messageType.authFailed);
+                                else finishWithMessage(messageType.connectionClosed);
+                            }
+                        },
+                        new TcpClient.OnConnectionFailed() {
+                            @Override
+                            public void connectionFailed() {
+                                finishWithMessage(messageType.connectionFailed);
+                            }
+                        });
+                mTcpClient.run();
+            } catch(ConnectionAbortException e) {
+                publishProgress("reconnect");
+            }
             return null;
         }
 
         @Override
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
-            Log.d("Server", values[0]);
+            if(values[0].equals("reconnect")) {
+                askReconnect();
+            }
         }
 
     }

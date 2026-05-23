@@ -91,4 +91,5 @@
     <string name="invalid_code">Invalid code</string>
     <string name="no_web_browser_found">No web browser found to open this URL</string>
     <string name="volume_button_hint">Hint: use the volume buttons to control the volume of your computer.</string>
+    <string name="reconnect">Reconnect</string>
 </resources>
