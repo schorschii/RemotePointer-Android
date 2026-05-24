@@ -321,15 +321,14 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
     private void askReconnect() {
         AlertDialog.Builder ad = new AlertDialog.Builder(this);
         ad.setTitle(getString(R.string.connfailed_title));
-        ad.setMessage(getString(R.string.reconnect));
-        ad.setIcon(getResources().getDrawable(R.drawable.ic_warning_orange_24dp));
-        ad.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+        ad.setIcon(getDrawable(R.drawable.ic_warning_orange_24dp));
+        ad.setPositiveButton(getString(R.string.reconnect), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 connect();
             }
         });
-        ad.setNeutralButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+        ad.setNeutralButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 finish();
@@ -343,14 +342,14 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
         AlertDialog.Builder ad = new AlertDialog.Builder(this);
         ad.setTitle(title);
         ad.setMessage(text);
-        ad.setIcon(getResources().getDrawable(R.drawable.ic_warning_orange_24dp));
-        ad.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+        ad.setIcon(getDrawable(R.drawable.ic_warning_orange_24dp));
+        ad.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
             }
         });
-        ad.setNeutralButton(getResources().getString(R.string.more), new DialogInterface.OnClickListener() {
+        ad.setNeutralButton(getString(R.string.more), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 startActivityForResult(new Intent(me, HelpActivity.class), REQUEST_HELP);
