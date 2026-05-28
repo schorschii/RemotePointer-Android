@@ -6,8 +6,8 @@ android {
         minSdk 21 // for Play billing library >= 7.0.0, otherwise 15
         targetSdk 36
         compileSdk 36
-        versionCode 22
-        versionName "3.1"
+        versionCode 23
+        versionName "3.2"
         multiDexEnabled true
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
