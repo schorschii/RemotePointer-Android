@@ -93,4 +93,7 @@
     <string name="volume_button_hint">Hint: use the volume buttons to control the volume of your computer.</string>
     <string name="reconnect">Reconnect</string>
     <string name="sync_clipboard">Sync Clipboard</string>
+    <string name="previous">Previous</string>
+    <string name="play_pause">Play/Pause</string>
+    <string name="next">Next</string>
 </resources>

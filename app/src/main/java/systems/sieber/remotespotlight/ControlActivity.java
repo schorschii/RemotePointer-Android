@@ -547,6 +547,15 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
     public void sendNext(View v) {
         if(mTcpClient != null) mTcpClient.sendMessage("NEXT");
     }
+    public void sendMediaPrev(View v) {
+        if(mTcpClient != null) mTcpClient.sendMessage("PLAYPREV");
+    }
+    public void sendMediaPlayPause(View v) {
+        if(mTcpClient != null) mTcpClient.sendMessage("PLAYPAUSE");
+    }
+    public void sendMediaNext(View v) {
+        if(mTcpClient != null) mTcpClient.sendMessage("PLAYNEXT");
+    }
     public void sendF1(View v) {
         if(mTcpClient != null) mTcpClient.sendMessage("F1");
     }
