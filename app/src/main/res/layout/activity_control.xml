@@ -194,6 +194,42 @@
                     android:layout_height="24dp" />
 
                 <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageButton
+                        android:layout_width="0dp"
+                        android:layout_height="70dp"
+                        android:layout_weight="1"
+                        android:onClick="sendMediaPrev"
+                        app:tint="@color/colorIcon"
+                        android:src="@drawable/ic_skip_previous_24dp"
+                        android:contentDescription="@string/previous" />
+
+                    <ImageButton
+                        android:layout_width="0dp"
+                        android:layout_height="70dp"
+                        android:layout_weight="1"
+                        android:onClick="sendMediaPlayPause"
+                        app:tint="@color/colorIcon"
+                        android:src="@drawable/ic_play_pause_24dp"
+                        android:contentDescription="@string/play_pause" />
+
+                    <ImageButton
+                        android:layout_width="0dp"
+                        android:layout_height="70dp"
+                        android:layout_weight="1"
+                        android:onClick="sendMediaNext"
+                        app:tint="@color/colorIcon"
+                        android:src="@drawable/ic_skip_next_24dp"
+                        android:contentDescription="@string/next" />
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp" />
+
+                <LinearLayout
                     style="?android:attr/buttonBarStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -402,38 +438,6 @@
                     android:contentDescription="@string/mouse_click_right"
                     app:tint="@color/colorIcon"
                     android:src="@drawable/ic_mouse_dynamic_24dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageButton
-                    android:layout_width="0dp"
-                    android:layout_height="70dp"
-                    android:layout_weight="1"
-                    android:onClick="sendMediaPrev"
-                    app:tint="@color/colorIcon"
-                    android:src="@drawable/ic_skip_previous_24dp"
-                    android:contentDescription="@string/previous" />
-
-                <ImageButton
-                    android:layout_width="0dp"
-                    android:layout_height="70dp"
-                    android:layout_weight="1"
-                    android:onClick="sendMediaPlayPause"
-                    app:tint="@color/colorIcon"
-                    android:src="@drawable/ic_play_pause_24dp"
-                    android:contentDescription="@string/play_pause" />
-
-                <ImageButton
-                    android:layout_width="0dp"
-                    android:layout_height="70dp"
-                    android:layout_weight="1"
-                    android:onClick="sendMediaNext"
-                    app:tint="@color/colorIcon"
-                    android:src="@drawable/ic_skip_next_24dp"
-                    android:contentDescription="@string/next" />
             </LinearLayout>
 
             <!--
