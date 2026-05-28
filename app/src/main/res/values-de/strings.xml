@@ -84,4 +84,5 @@
     <string name="no_web_browser_found">Kein Webbrowser zum Öffnen der URL gefunden</string>
     <string name="volume_button_hint">Hinweis: verwenden Sie die Lautstärketasten, um die Lautstärke Ihres Computers zu steuern.</string>
     <string name="reconnect">Verbindung wiederherstellen</string>
+    <string name="sync_clipboard">Zwischenablage synchronisieren</string>
 </resources>

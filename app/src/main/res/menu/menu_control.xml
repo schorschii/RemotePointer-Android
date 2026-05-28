@@ -19,4 +19,9 @@
         android:title="@string/scanner"
         android:icon="@drawable/ic_camera_dynamic_24dp"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/action_sync_clipboard"
+        android:title="@string/sync_clipboard"
+        android:checkable="true"
+        app:showAsAction="never" />
 </menu>

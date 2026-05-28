@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -48,6 +49,11 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
     ControlActivity me;
     TcpClient mTcpClient;
     FeatureCheck fc;
+    SharedPreferences mSettings;
+
+    ClipboardManager mClipboard;
+    String mLastClipboardText;
+    boolean mSyncClipboard;
 
     boolean sendValues = false;
 
@@ -63,6 +69,7 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_control);
         me = this;
+        mSettings = getSharedPreferences(ConnectActivity.PREFS_NAME, 0);
 
         // init toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -74,10 +81,9 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
         fc.init();
 
         // show volume button hint
-        SharedPreferences settings = getSharedPreferences(ConnectActivity.PREFS_NAME, 0);
-        if(!settings.getBoolean("volume-hint-shown", false)) {
+        if(!mSettings.getBoolean("volume-hint-shown", false)) {
             Snackbar.make(findViewById(R.id.controlMainView), getResources().getString(R.string.volume_button_hint), Snackbar.LENGTH_LONG).show();
-            SharedPreferences.Editor edit = settings.edit();
+            SharedPreferences.Editor edit = mSettings.edit();
             edit.putBoolean("volume-hint-shown", true);
             edit.apply();
         }
@@ -258,6 +264,10 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        // setup clipboard listener
+        mClipboard = (ClipboardManager) this.getSystemService(CLIPBOARD_SERVICE);
+        mSyncClipboard = mSettings.getBoolean("sync-clipboard", false);
+
         // establish connection to server
         Intent intent = getIntent();
         mAddress = intent.getStringExtra("address");
@@ -279,6 +289,7 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_control, menu);
+        menu.findItem(R.id.action_sync_clipboard).setChecked(mSyncClipboard);
         return true;
     }
 
@@ -305,6 +316,13 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
                 findViewById(R.id.linearLayoutControlKeyboard).setVisibility(View.GONE);
                 findViewById(R.id.constraintLayoutControlScanner).setVisibility(View.VISIBLE);
                 hideKeyboard( (EditText)findViewById(R.id.editTextControlKeyboardText) );
+                break;
+            case R.id.action_sync_clipboard:
+                item.setChecked(!item.isChecked());
+                mSyncClipboard = item.isChecked();
+                SharedPreferences.Editor edit = mSettings.edit();
+                edit.putBoolean("sync-clipboard", mSyncClipboard);
+                edit.apply();
                 break;
             case android.R.id.home:
                 finish();
@@ -402,6 +420,18 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
         if(findViewById(R.id.linearLayoutControlKeyboard).getVisibility() == View.VISIBLE
                 && ((CheckBox) findViewById(R.id.checkBoxControlKeyboardSendImmediately)).isChecked()) {
             showKeyboard();
+        }
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if(hasFocus && mSyncClipboard) {
+            CharSequence clipboardText = mClipboard.getText();
+            if(clipboardText != null && !clipboardText.toString().equals(mLastClipboardText)) {
+                mLastClipboardText = clipboardText.toString();
+                if(mTcpClient != null) mTcpClient.sendMessage("CLIPBOARD|"+mLastClipboardText);
+            }
         }
     }
 
@@ -630,7 +660,7 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
                         });
                 mTcpClient.run();
             } catch(ConnectionAbortException e) {
-                publishProgress("reconnect");
+                publishProgress("RECONNECT");
             }
             return null;
         }
@@ -638,8 +668,13 @@ public class ControlActivity extends AppCompatActivity implements ZXingScannerVi
         @Override
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
-            if(values[0].equals("reconnect")) {
+            if(values[0].equals("RECONNECT")) {
                 askReconnect();
+            } else if(values[0].startsWith("CLIPBOARD|")
+            && mSyncClipboard) {
+                String t = values[0].substring(10);
+                mLastClipboardText = t;
+                mClipboard.setText(t);
             }
         }
 
