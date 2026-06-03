@@ -17,7 +17,7 @@
     <item
         android:id="@+id/action_start_scanner"
         android:title="@string/scanner"
-        android:icon="@drawable/ic_camera_dynamic_24dp"
+        android:icon="@drawable/ic_barcode_reader_24dp"
         app:showAsAction="always" />
     <item
         android:id="@+id/action_sync_clipboard"
