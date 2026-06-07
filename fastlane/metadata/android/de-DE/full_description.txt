@@ -1,6 +1,7 @@
 Mit dieser App können Sie die Tastatur und Maus (über ein Touchpad) Ihres Computers fernsteuern. Des Weiteren kann ein digitaler Laserpointer-Punkt auf den Bildschirm oder Projektor projiziert werden, der mit der Bewegung Ihres Android-Gerätes gesteuert wird.
 
 Vorteile:
+
 - bedienen Sie Ihren Computer von der Couch aus
 - der Laserpointer-Punkt kann bei Präsentationen mit aufgezeichnet werden, wenn die Bildschirmausgabe aufgenommen wird
 - der digitale Laserpointer-Punkt ist in hellen Räumen besser zu sehen
